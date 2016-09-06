@@ -1,0 +1,324 @@
+
+Purpose:
+ Short description of key concepts in Datanet and Datanet's OpenResty API
+
+SECTION ONE: Key Concepts
+
+  The Datanet has 4 dimensions: [Users, Devices, Channels, Documents].
+
+  Basics:
+    1.) Users have login/password authentication.
+    2.) Devices are physical machines (e.g. app-servers)
+    3.) Users are stationed on Devices.
+    4.) Users subscribe to Channels.
+    5.) Channels are pub/sub channels publishing Documents.
+    6.) Documents contain data and metadata.
+    7.) A Document's metadata specifies Channels to be published to.
+    8.) A User can CACHE a Document on its current Device.
+    9.) Replication is accomplished by either:
+        A.) publishing Documents on Channels to subscribers on
+            different Devices 
+        B.) sending Document-modifications to different Devices CACHING
+            the Document
+    10.) Documents are stored in collections
+    11.) Collections are grouped into namespaces
+    12.) An individual document is addressable as:
+           Namespace_name.Collection_name.Document_key
+
+  Details:
+    1.) AdminUsers grant priviliges on Channels to NormalUsers.
+    2.) NormalUsers subscribe to Channels (on which they have appropriate
+        priviliges).
+    3.) A NormalUser (referred to as User) can subscribe to multiple Channels.
+    4.) Users can CACHE Documents (on which they have appropriate privileges)
+    4.) Applications (e.g. running on app-servers) station Users on Devices
+    5.) A Device can have multiple Users stationed on it
+    6.) A Document contains data.
+    7.) A Document also contains metadata specifying to which Channel(s) it
+        will be published.
+    8.) A User creating, modifying, or removing a Document must have WRITE
+        priviliges on ALL Channels specified in the Document's metadata.
+    9.) A Document can specify multiple Channels to replicate to, although one
+        Channel per Document is the norm.
+    10.) A User can direct the system to CACHE a Document on the User's
+         current Device
+    11.) CACHED Documents are subject to cache-eviction, PubSub documents
+         are not
+
+SECTION TWO: OpenResty API
+
+  The following is a list of commands OpenResty's Datanet Agent supports and
+  examples on how to use them.
+
+  PART-ONE: Admin commands
+    1.1.) Datanet:add_user(username, password, ROLE)
+      Purpose:
+        Datanet:add_user() command adds a user with password to Datanet
+      Notes:
+        * Only Admin users can call Datanet:add_user()
+        * Username must be unique
+        * ROLE can be [ADMIN,USER]
+      Example:
+        Add normal user 'User2' w/ password 'MyPass' to Datanet
+          local res, err = Datanet:add_user('User2',  'MyPass', 'USER');
+
+    1.2.) Datanet:grant_user(username, channel_name, PRIVILEGE)
+      Purpose:
+        Datanet:grant_user() command grants a user priviliges to a channel
+      Notes:
+        * Only Admin users can call GRANT
+        * Privliges can be [READ,WRITE]
+      Example:
+        Grant 'User3' WRITE priviliges on channel 'ChanUser3'
+          local res, err = Datanet:grant_user('User3', 'WRITE', 'ChanUser3');
+
+
+
+  PART-TWO: User commands
+    2.1.) Datanet:switch_user(username, password)
+      Purpose:
+       Datanet:switch_user() command switches client's current user
+      Notes:
+        The User will be authenticated
+      Example:
+        Switch to 'User2' w/ password 'MyPass'
+          local res, err = Datanet:switch_user('User2', 'MyPass');
+
+    2.2.) Datanet:station(username, password)
+      Purpose:
+        Datanet:station() command stations a User on the Agent
+      Notes:
+        * The User will be authenticated
+        * If the User has already subscribed to some channels, ALL the keys in 
+          those channels will be asynchronously replicated to this device
+      Example:
+        Station 'User3' w/ password 'SuperPass'
+          local res, err = Datanet:station('User3', 'SuperPass');
+
+    2.4.) Datanet:subscribe(channel_name)
+      Purpose:
+        Datanet:subscribe() command subscribes the current user to a
+        given Channel
+      Notes:
+        * The User will be authenticated
+        * ALL the keys in this channel will be asynchronously replicated to ALL 
+          devices the current user is stationed on
+      Example:
+        Subscribe current user to channel: 'ChanUser3'
+          local res, err = Datanet:subscribe('ChanUser3');
+
+
+
+  PART-THREE: Data-persistence commands
+    3.1.) Datanet:namespace(namespace_name)
+      Purpose:
+        Datanet:namespace() command sets current client's current namespace
+      Notes:
+        The namespace is not validated
+      Example:
+        Datanet:namespace(namespace_name);
+
+    3.2.) Datanet:collection(collection_name)
+      Purpose:
+        Datanet:collection() command sets current client's
+        current collection
+      Notes:
+        The collection is not validated
+      Example:
+        Switch to collection 'user_data'
+          local collection = Datanet:collection(collection_name);
+
+    3.3.) collection:store(val)
+      Purpose:
+        collection:store() command persists a data-document to Datanet
+      Notes:
+        * 'val' must be EITHER a string of valid JSON or a Lua Table
+        * field '_id' is a keyword
+        * field '_channels' is a keyword
+        * Document will be replicated throughout entire Datanet according to
+          the document's channels and which Agents are caching the document
+        * User must have write-permissions to ALL channels specified in
+          Document's metadata
+        * If User is not subscribed to any channels specified in Document's
+          metadata but has write permissions on the Document, the Document
+          is automatically CACHED (section 3.10) on this Agent
+      Example: Lua Table
+        Store document w/ key: 'MyData', replicating to channel: 'ChanUser3'
+          local collection = Datanet:collection("users");
+          local val        = {_id       = 'MyData',
+                              _channels = ['ChanUser3'],
+                              user_id   = 3,
+                              firstname = 'John',
+                              lastname  = 'Doe',
+                              age       = 22,
+                              events    = ['user_registered']}
+          local res, err   = collection:store(val);
+      Example: String of JSON
+        Store document w/ key: 'MyData', replicating to channel: 'ChanUser3'
+          local collection = Datanet:collection("users");
+          local json_body  = "{_id       : 'MyData',
+                               _channels : ['ChanUser3'],
+                               user_id   : 3,
+                               firstname : 'John',
+                               lastname  : 'Doe',
+                               age       : 22,
+                               events    : ['user_registered']}";
+          local res, err   = collection:store(json_body);
+
+    3.4.) collection:remove(key_name)
+      Purpose:
+        collection:remove() command removes a single document from Datanet
+      Notes:
+        * Documented will be removed throughout entire Datanet according to
+          its channels
+        * User must be subscribed and have write-permissions to ALL channels
+          specified in Document's metadata
+      Example:
+        Remove document w/ key 'Mydata'
+          local collection = Datanet:collection("users");
+          local res, err   = collection:remove('Mydata');
+  
+    3.5.) collection:fetch(key_name, cache)
+      Purpose:
+        collection:fetch() command fetches a key's CRDT
+      Notes:
+        * FETCH is the first step when modifying data (FETCH->modify->COMMIT)
+        * Argument: 'cache' will fetch the document from Central if it is not
+          locally present and then put it into the local-cache
+      Examples:
+        1.) Fetch document w/ key 'Mydata'
+            local collection = Datanet:collection("users");
+            local doc, err   = collection:fetch('MyData');
+        1.) Fetch AND Cache document w/ key 'Hotdata'
+            local collection = Datanet:collection("users");
+            local doc, err   = collection:fetch('HotData', true);
+
+    3.6.) doc:commit()
+      Purpose:
+        doc:commit() command commits modifications to a document
+      Notes:
+        * Agent will persist then replicate the commit as a Delta
+        * Commits may be rejected (e.g. key was removed)
+      Example:
+        Commit modifications to document w/ key 'MyData'
+          local collection = Datanet:collection("users");
+          local doc, err   = collection:fetch('MyData');
+          -- MODIFY DOCUMENT discussed in PART FOUR: Data-modification commands
+          local res, err   = doc:commit();
+
+    3.10.) collection:expire(key_name, seconds)
+      Purpose:
+        collection:expire() command specifies an expiration time for a document
+      Notes:
+        * User must have WRITE priviliges to ALL of the Document's Channels
+        * expire() sets a SYSTEM-WIDE expiration for a document, the document
+          will be SYSTEM-WIDE removed upon expiration
+        * If Agent is offline, it will locally respect the expiration time,
+          but other Subscribers will not have the updated expiration time
+          until Agent is back online
+        * Argument 'seconds'
+      Example:
+        Expire document w/ key 'HotData' in 60.2 seconds
+          local collection = Datanet:collection("users");
+          local doc, err   = collection:expire('HotData', 60.2);
+
+
+
+  PART-FOUR: Data-modification commands
+    NOTES:
+      A.) Data-modificaton commands are applied to the current document, the
+          previous document fetched via collection:fetch() or
+          collection:cache()
+      B.) Fields are specified by dot-notation
+          Examples:
+          1.) the root-level field '{age:}' is accessed via 'age'
+          2.) the nested field '{user:{actions:[]}}'
+              is accessed via 'user.actions'
+          3.) the nested array element '{user:{actions:[4]}}'
+              is accessed via 'user.actions.4'
+      C.) Values can be any valid serialized JSON or simple value (INT,STRING)
+      D.) Data-modifications will not be persisted or replicated until the
+          doc:commit() command is called
+
+    4.1.) doc:set(field_name, value)
+      Purpose:
+        doc:set() command sets a field to a value in the current document
+      Notes:
+        * if field does not exist it will be created
+        * if field does exist it will be overwritten
+      Example:
+        1.) Set field 'firstname' to value 'BILL'
+            local res, err = doc:set('firstname', 'BILL');
+        2.) Set field 'actions' to array with two events
+            local res, err = doc:set('actions',
+                                     '["user_registered","user_logged_in"]');
+        3.) Set 3rd element in array 'actions' to 'logged_out'
+            local res, err = doc:set('actions.3', 'logged_out');
+
+    4.2.) doc:delete(field_name)
+      Purpose:
+        doc:delete() command deletes a field from the current document
+      Notes:
+        * if field does not exist, DELETE is a no-op
+      Example:
+        1.) Delete field 'limited_time_offer'
+          local res, err = doc:delete('limited_time_offer');
+
+    4.3.) doc:insert(array_field_name, position, value)
+      Purpose:
+        doc:insert() command inserts an element into an array at a position
+        in the current document
+      Notes:
+        * if field does not exist, INSERT will create an empty array
+        * if position is greater than the length of the array, null values
+          will be added to fill in missing positions
+          (SORRY: it's a JSON standard)
+        * If field is not an array (e.g an object), an error will be returned
+      Example:
+        1.) Insert 'logged_in' event as first element in
+            array-field 'user_actions'
+              local res, err = doc:insert('user_actions', 0, 'logged_in');
+        2.) Same use-case but 'logged_in' event is a dictionary and
+            array-field is nested field 'user{actions:[]}'
+              local actions  = '{"action"    : "logged_in",
+                                "timestamp" : 1435775648,
+                                "device"    : 456
+                               }';
+              local res, err = doc:insert('user.actions', 0, actions);
+
+    4.4.) doc:increment(field_name, by_value)
+      Purpose:
+        doc:increment() command increments a numerical field by a
+        given number in the current document
+      Notes:
+        * if field does not exist, INCR is a no-op
+        * if field is not a numerical field (e.g. string), an error is returned
+      Example:
+        Increment field 'age' by value 1
+          local res, err = doc:increment('age', 1);
+
+
+
+  PART-FIVE: Simple content_by_lua example
+    Purpose:
+      Update the number of times a user has accessed the system
+
+    Setup:
+      Nginx.conf:
+        location /number_access {
+          content_by_lua_file number_access.lua;
+        }
+
+      Calling HTTP URI: http://server/number_access?user=RUSS
+
+      File: number_access.lua (NOTE error-checking omitted)
+        local res, err   = Datanet:switch_user('AppServerUser', 'SomePassword');
+        local args       = ngx.req.get_uri_args()
+        local user       = args['user'];
+        local user_key   = "UserInfo_" .. user;
+        local coll_name  = "users";
+        local collection = Datanet:collection(coll_name);
+        local doc, err   = collection:fetch(user_key);
+        local res, err   = doc:increment("number_access", 1);
+        local res, err   = doc:commit();
+

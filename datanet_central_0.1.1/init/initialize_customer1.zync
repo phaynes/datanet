@@ -1,0 +1,6 @@
+user admin apassword
+grant customer1 1 WRITE
+user customer1 some_pass
+station customer1 some_pass
+subscribe 1
+quit

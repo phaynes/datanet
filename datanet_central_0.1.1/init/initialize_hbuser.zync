@@ -1,0 +1,6 @@
+user admin apassword
+grant hbuser 1 WRITE
+user hbuser password
+station hbuser password
+subscribe 1
+quit

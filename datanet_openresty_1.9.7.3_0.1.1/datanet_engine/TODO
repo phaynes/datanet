@@ -1,0 +1,56 @@
+
+2nd PRIORITY:
+  1.) Tweet demo in RestyDatanet
+    A.) AdminAuth/AdminAddUser/AdminGrantUser
+    B.) GetAgentKeys
+    C.) StickyCache -> requires logic in nginx/lua/cluster.lua
+                       (e.g. ZMCC.AdjustLocalCacheToNewPartitionTable())
+    D.) LargeList support
+
+
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+OPTIONAL:
+  NEW FEATURES: TODO LATER
+    1.) zdcompress (plus bitpack & lz4)
+    2.) Separate CRDT & Members storage
+    3.) StatelessCreate/Commit -> not needed in CDN-PoP architecture
+    4.) AgentMessage/Request -> OpenResty has its own LoadBalancing
+
+
+LOW PRIORITY:
+  TODO:
+    1.) Notify & ZS.EngineCallback
+    2.) MemcacheCluster
+    3.) zmemcache_get.js: MemcacheGet/Fetch/Store/Commit
+    4.) CoalesceDeltas
+
+    isolated.cpp:
+      1.) ZISL.StartupOnBackoff
+
+  MISC:
+    2.) Dereferencing nested JSON elements is triggering Json::Value
+        construction all over the place -> INEFFICIENT AS HELL
+
+  CLIENT:
+    1.) ClientScan
+    2.) ClientPull
+    3.) ClientGetStationedUsers
+    4.) ClientGetAgentSubscriptions
+    5.) ClientGetUserInfo
+    6.) ClientGetMemcacheClusterState
+    7.) ClientIsCached
+    8.) ClientMessage
+    9.) ClientRequest
+    A.) ClientAddUser
+    B.) ClientRemoveUser
+    C.) ClientGrantUser
+    D.) ClientRemoveDataCenter
+    E.) ClientGetAgentKeys
+    F.) ClientShutdown
+    G.) ClientNotify
+    H.) ClientStatelessCommit
+    I.) ClientMemcacheCommit
+

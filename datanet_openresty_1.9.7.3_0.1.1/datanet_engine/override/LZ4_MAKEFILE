@@ -1,0 +1,28 @@
+
+CPP = g++ -std=c++11 -g -Wall
+CC  = gcc -Wall
+
+LUA_INCDIR ?= ../lua/src/
+LUA_LIBDIR ?= ../lua/src/
+LIBFLAGS   ?= -shared
+
+LUA_CFLAGS ?= -O2 -fPIC
+
+LZ4OBJS     = lz4/lz4.o lz4/lz4hc.o lz4/lz4frame.o lz4/xxhash.o
+
+LIBNAME     = liblz4.a
+
+CFLAGS      = $(LUA_CFLAGS) -I$(LUA_INCDIR)
+CXXFLAGS    = $(LUA_CFLAGS) -I$(LUA_INCDIR)
+LDFLAGS     = $(LIBFLAGS) -L$(LUA_LIBDIR)
+
+
+# rules
+all: lib
+
+clean:
+	$(RM) $(LZ4OBJS) $(LIBNAME)
+
+lib: $(LZ4OBJS)
+	ar cru $(LIBNAME) lz4/lz4.o lz4/lz4hc.o lz4/lz4frame.o lz4/xxhash.o
+

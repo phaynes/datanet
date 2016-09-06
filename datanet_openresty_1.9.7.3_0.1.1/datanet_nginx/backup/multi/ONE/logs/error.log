@@ -1,0 +1,1127 @@
+2015/12/10 13:30:57 [error] 31319#0: [lua] initialization.lua:2: c_log(): OVERIDE ME PLEASE: worker_daemon:HandleInitialization()
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): grab_primary_lock: (PRIMARY) WID: 1000001, context: init_worker_by_lua*
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): INITIALIZE-WORKER: wid: 1000002 wport: 15002 primary: false #W: 1, context: init_worker_by_lua*
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): INITIALIZE-WORKER: wid: 1000001 wport: 15001 primary: true #W: 2, context: init_worker_by_lua*
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): DatanetCluster:initialize: IP: 127.0.0.1 PORT: 18080, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783057}, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ForceVote sval: true, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: TermNumber sval: 1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: LastClusterCommitId sval: nil, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783057}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: true, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NewNodes_1000000 sval: 1449783057, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783057}}, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: LastClusterCommitId sval: nil, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: TermNumber sval: 2, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NumVotes_1000000_1 sval: 0, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783057}}, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): GetKey: sval: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: AlreadyVoted_2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: true, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: AlreadyVoted_2 sval: true, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NumVotes_1000000_1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 0, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NumVotes_1000000_1 sval: 1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_1 #V: 1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NumCommits_1000000_1 sval: 0, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: LastClusterCommitId sval: 1000000_1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783057}}, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: TermNumber sval: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ForceVote sval: false, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783057}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): DeleteTable: T: CLUSTER, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783057}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NewNodes_1000000 sval: 1449783057, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NumCommits_1000000_1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 0, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NumCommits_1000000_1 sval: 1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_1 #C: 1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: LastClusterCommitId sval: nil, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): DatanetCluster:initialize: IP: 127.0.0.1 PORT: 18080, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783057}, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ForceVote sval: true, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: TermNumber sval: 1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: LastClusterCommitId sval: nil, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783057}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: true, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NewNodes_1000000 sval: 1449783057, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783057}}, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: LastClusterCommitId sval: nil, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: TermNumber sval: 2, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NumVotes_1000000_1 sval: 0, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783057}}, context: ngx.timer
+2015/12/10 13:30:57 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): GetKey: sval: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: AlreadyVoted_2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): GetKey: sval: true, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 2, context: ngx.timer
+2015/12/10 13:30:57 [error] 31322#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: ERROR: AlreadyVoted, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783071}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783071}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: true, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NewNodes_1000000 sval: 1449783071, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783071}}, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: LastClusterCommitId sval: nil, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 2, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: TermNumber sval: 3, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NumVotes_1000000_2 sval: 0, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783071}}, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: true, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NewNodes_1000000 sval: 1449783071, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783071}}, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: LastClusterCommitId sval: nil, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 3, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: TermNumber sval: 4, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NumVotes_1000000_2 sval: 0, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): GetKey: sval: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_2 TERM: 3, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: AlreadyVoted_3, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783071}}, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 4, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: ERROR: OldTermNumber, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): GetKey: sval: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_2 TERM: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: AlreadyVoted_4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: true, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: AlreadyVoted_4 sval: true, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NumVotes_1000000_2, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 0, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NumVotes_1000000_2 sval: 1, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_2 #V: 1, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NumCommits_1000000_2 sval: 0, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: LastClusterCommitId sval: 1000000_2, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783071}}, context: ngx.timer
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_2 TERM: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: TermNumber sval: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ForceVote sval: false, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783071}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): DeleteTable: T: CLUSTER, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783071}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NewNodes_1000000 sval: 1449783071, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NumCommits_1000000_2, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 0, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NumCommits_1000000_2 sval: 1, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_2 #C: 1, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 1, context: ngx.timer
+2015/12/10 13:31:11 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: LastClusterCommitId sval: nil, context: ngx.timer
+2015/12/10 13:31:17 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783077}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783077}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): GetKey: sval: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 2000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: AlreadyVoted_2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): GetKey: sval: true, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783077}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783077}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: TermNumber, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): GetKey: sval: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 2000000_1 TERM: 5, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: AlreadyVoted_5, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: true, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: AlreadyVoted_5 sval: true, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 2000000_1 TERM: 5, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: TermNumber sval: 5, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ForceVote sval: false, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":false,"port":18080,"ts":1449783077},"2000000":{"ip":"127.0.0.1","leader":true,"port":28080,"ts":1449783077}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): DeleteTable: T: CLUSTER, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783077}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783077}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NewNodes_1000000 sval: 1449783077, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:17 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: NewNodes_2000000 sval: 1449783077, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783085}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:25 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783085}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:25 [error] 31322#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:31:31 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783091}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:31 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783091}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783098}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:38 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783098}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:38 [error] 31322#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:31:45 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783105}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:45 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783105}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783112}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:52 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783112}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:31:52 [error] 31322#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:31:58 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783118}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:31:58 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783118}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783122}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:02 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783122}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:02 [error] 31322#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:32:12 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783132}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:12 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783132}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783135}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:15 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783135}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:15 [error] 31322#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:32:22 [error] 31322#0: *5 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783142}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:22 [error] 31322#0: *6 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 2000000 sval: {"ip":"127.0.0.1","port":28080,"ts":1449783142}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: *2 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783147}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:27 [error] 31321#0: *4 [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER PK: 1000000 sval: {"ip":"127.0.0.1","port":18080,"ts":1449783147}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetTable: T: CLUSTER, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: LastClusterCommitId, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): SetKey: T: CLUSTER_INFO PK: ClusterVoteInProgress sval: false, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: ForceVote, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: false, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_2000000, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: T: CLUSTER_INFO PK: NewNodes_1000000, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): GetKey: sval: 1449783077, context: ngx.timer
+2015/12/10 13:32:27 [error] 31322#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:32:28 [error] 31334#0: [lua] initialization.lua:2: c_log(): OVERIDE ME PLEASE: worker_daemon:HandleInitialization()
+2015/12/10 13:32:28 [error] 31337#0: [lua] initialization.lua:2: c_log(): grab_primary_lock: (PRIMARY) WID: 1000001, context: init_worker_by_lua*
+2015/12/10 13:32:28 [error] 31336#0: [lua] initialization.lua:2: c_log(): INITIALIZE-WORKER: wid: 1000002 wport: 15002 primary: false #W: 1, context: init_worker_by_lua*
+2015/12/10 13:32:28 [error] 31336#0: [lua] initialization.lua:2: c_log(): DatanetCluster:initialize: IP: 127.0.0.1 PORT: 18080, context: ngx.timer
+2015/12/10 13:32:28 [error] 31336#0: [lua] initialization.lua:2: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 13:32:28 [error] 31336#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783148}}, context: ngx.timer
+2015/12/10 13:32:28 [error] 31336#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783148}}, context: ngx.timer
+2015/12/10 13:32:28 [error] 31336#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:28 [error] 31336#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_1 #V: 1, context: ngx.timer
+2015/12/10 13:32:28 [error] 31336#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:32:28 [error] 31336#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783148}}, context: ngx.timer
+2015/12/10 13:32:28 [error] 31336#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:28 [error] 31336#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783148}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:28 [error] 31336#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:28 [error] 31336#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_1 #C: 1, context: ngx.timer
+2015/12/10 13:32:28 [error] 31336#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 1, context: ngx.timer
+2015/12/10 13:32:28 [error] 31337#0: [lua] initialization.lua:2: c_log(): INITIALIZE-WORKER: wid: 1000001 wport: 15001 primary: true #W: 2, context: init_worker_by_lua*
+2015/12/10 13:32:28 [error] 31337#0: [lua] initialization.lua:2: c_log(): DatanetCluster:initialize: IP: 127.0.0.1 PORT: 18080, context: ngx.timer
+2015/12/10 13:32:28 [error] 31337#0: [lua] initialization.lua:2: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 13:32:28 [error] 31337#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783148}}, context: ngx.timer
+2015/12/10 13:32:28 [error] 31337#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783148}}, context: ngx.timer
+2015/12/10 13:32:28 [error] 31336#0: *4 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:28 [error] 31337#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: ERROR: AlreadyVoted, context: ngx.timer
+2015/12/10 13:32:42 [error] 31337#0: [lua] initialization.lua:2: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 13:32:42 [error] 31337#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783162}}, context: ngx.timer
+2015/12/10 13:32:42 [error] 31337#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783162}}, context: ngx.timer
+2015/12/10 13:32:42 [error] 31336#0: [lua] initialization.lua:2: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 13:32:42 [error] 31336#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783162}}, context: ngx.timer
+2015/12/10 13:32:42 [error] 31336#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783162}}, context: ngx.timer
+2015/12/10 13:32:42 [error] 31336#0: *4 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_2 TERM: 3, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:42 [error] 31336#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_2 TERM: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:42 [error] 31337#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: ERROR: OldTermNumber, context: ngx.timer
+2015/12/10 13:32:42 [error] 31336#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_2 #V: 1, context: ngx.timer
+2015/12/10 13:32:42 [error] 31336#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:32:42 [error] 31336#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783162}}, context: ngx.timer
+2015/12/10 13:32:42 [error] 31336#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_2 TERM: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:42 [error] 31336#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783162}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:42 [error] 31336#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:32:42 [error] 31336#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_2 #C: 1, context: ngx.timer
+2015/12/10 13:32:42 [error] 31336#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 1, context: ngx.timer
+2015/12/10 13:32:56 [error] 31337#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:32:56 [error] 31336#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:33:09 [error] 31336#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:33:09 [error] 31337#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:33:23 [error] 31337#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:33:23 [error] 31336#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:33:33 [error] 31337#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:33:33 [error] 31336#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:33:46 [error] 31336#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:33:46 [error] 31337#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:33:58 [error] 31336#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:33:58 [error] 31337#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:36:07 [error] 31351#0: [lua] initialization.lua:2: c_log(): OVERIDE ME PLEASE: worker_daemon:HandleInitialization()
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): grab_primary_lock: (PRIMARY) WID: 1000001, context: init_worker_by_lua*
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): INITIALIZE-WORKER: wid: 1000001 wport: 15001 primary: true #W: 1, context: init_worker_by_lua*
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): DatanetCluster:initialize: IP: 127.0.0.1 PORT: 18080, context: ngx.timer
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 13:36:07 [error] 31354#0: [lua] initialization.lua:2: c_log(): INITIALIZE-WORKER: wid: 1000002 wport: 15002 primary: false #W: 2, context: init_worker_by_lua*
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783367}}, context: ngx.timer
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783367}}, context: ngx.timer
+2015/12/10 13:36:07 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_1 #V: 1, context: ngx.timer
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783367}}, context: ngx.timer
+2015/12/10 13:36:07 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:36:07 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783367}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:36:07 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_1 #C: 1, context: ngx.timer
+2015/12/10 13:36:07 [error] 31355#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 1, context: ngx.timer
+2015/12/10 13:36:21 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:36:25 [error] 31354#0: *3 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 2000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:36:35 [error] 31355#0: [lua] initialization.lua:2: c_log(): CN: UUID: 2000000 is NEW, context: ngx.timer
+2015/12/10 13:36:35 [error] 31355#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783395},"2000000":{"ip":"127.0.0.1","port":28080,"ts":1449783385}}, context: ngx.timer
+2015/12/10 13:36:35 [error] 31355#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783395},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783385}}, context: ngx.timer
+2015/12/10 13:36:35 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_2 #V: 1, context: ngx.timer
+2015/12/10 13:36:35 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_2 TERM: 3, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:36:35 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_2 #V: 2, context: ngx.timer
+2015/12/10 13:36:35 [error] 31355#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:36:35 [error] 31355#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783395},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783385}}, context: ngx.timer
+2015/12/10 13:36:35 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_2 TERM: 3, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:36:35 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783395},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783385}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:36:35 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:36:35 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_2 #C: 1, context: ngx.timer
+2015/12/10 13:36:35 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_2 #C: 2, context: ngx.timer
+2015/12/10 13:36:35 [error] 31355#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 2, context: ngx.timer
+2015/12/10 13:36:48 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:37:02 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:37:12 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:37:25 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:37:37 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:37:51 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:38:03 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:38:16 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:38:26 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:38:36 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:38:51 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:38:59 [error] 31354#0: *5 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 3000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): CN: UUID: 3000000 is NEW, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783545},"2000000":{"ip":"127.0.0.1","port":28080,"ts":1449783534},"3000000":{"ip":"127.0.0.1","port":38080,"ts":1449783539}}, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783545},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783534},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449783539}}, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_3 #V: 1, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_3 #V: 2, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_3 TERM: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_3 #V: 3, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783545},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783534},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449783539}}, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_3 #C: 1, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_3 TERM: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:05 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783545},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783534},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449783539}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:05 [error] 31355#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_3 #C: 2, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_3 #C: 3, context: ngx.timer
+2015/12/10 13:39:05 [error] 31355#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 3, context: ngx.timer
+2015/12/10 13:39:16 [error] 31355#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:39:22 [error] 31512#0: [lua] initialization.lua:2: c_log(): OVERIDE ME PLEASE: worker_daemon:HandleInitialization()
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): grab_primary_lock: (PRIMARY) WID: 1000001, context: init_worker_by_lua*
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): INITIALIZE-WORKER: wid: 1000001 wport: 15001 primary: true #W: 1, context: init_worker_by_lua*
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): DatanetCluster:initialize: IP: 127.0.0.1 PORT: 18080, context: ngx.timer
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783562}}, context: ngx.timer
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783562}}, context: ngx.timer
+2015/12/10 13:39:22 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_1 #V: 1, context: ngx.timer
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783562}}, context: ngx.timer
+2015/12/10 13:39:22 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:22 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783562}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:22 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_1 #C: 1, context: ngx.timer
+2015/12/10 13:39:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 1, context: ngx.timer
+2015/12/10 13:39:22 [error] 31515#0: [lua] initialization.lua:2: c_log(): INITIALIZE-WORKER: wid: 1000002 wport: 15002 primary: false #W: 2, context: init_worker_by_lua*
+2015/12/10 13:39:36 [error] 31514#0: *3 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 2000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): CN: UUID: 2000000 is NEW, context: ngx.timer
+2015/12/10 13:39:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783576},"2000000":{"ip":"127.0.0.1","port":28080,"ts":1449783576}}, context: ngx.timer
+2015/12/10 13:39:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783576},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783576}}, context: ngx.timer
+2015/12/10 13:39:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_2 #V: 1, context: ngx.timer
+2015/12/10 13:39:36 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_2 TERM: 3, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_2 #V: 2, context: ngx.timer
+2015/12/10 13:39:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:39:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783576},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783576}}, context: ngx.timer
+2015/12/10 13:39:36 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_2 TERM: 3, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:36 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783576},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783576}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:36 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:39:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_2 #C: 1, context: ngx.timer
+2015/12/10 13:39:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_2 #C: 2, context: ngx.timer
+2015/12/10 13:39:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 2, context: ngx.timer
+2015/12/10 13:39:50 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:39:54 [error] 31514#0: *5 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 3000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): CN: UUID: 3000000 is NEW, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783603},"2000000":{"ip":"127.0.0.1","port":28080,"ts":1449783590},"3000000":{"ip":"127.0.0.1","port":38080,"ts":1449783594}}, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783603},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783590},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449783594}}, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_3 #V: 1, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_3 #V: 2, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_3 TERM: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_3 #V: 3, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783603},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783590},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449783594}}, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_3 #C: 1, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_3 TERM: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:40:03 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783603},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783590},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449783594}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:40:03 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_3 #C: 2, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_3 #C: 3, context: ngx.timer
+2015/12/10 13:40:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 3, context: ngx.timer
+2015/12/10 13:40:17 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:40:27 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:40:40 [error] 31514#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 13:40:40 [error] 31514#0: [lua] initialization.lua:2: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 13:40:40 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:40:52 [error] 31514#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 13:40:52 [error] 31514#0: [lua] initialization.lua:2: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 13:40:52 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): CN: UUID: 2000000 is DOWN: stale: 35, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783666},"3000000":{"ip":"127.0.0.1","port":38080,"ts":1449783659}}, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783666},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449783659}}, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_4 #V: 1, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_4 TERM: 5, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_4 #V: 2, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783666},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449783659}}, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_4 TERM: 5, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:41:06 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783666},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449783659}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:41:06 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_4 #C: 1, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_4 #C: 2, context: ngx.timer
+2015/12/10 13:41:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 2, context: ngx.timer
+2015/12/10 13:41:18 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:41:31 [error] 31514#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 13:41:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 13:41:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:41:41 [error] 31514#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 13:41:41 [error] 31514#0: [lua] initialization.lua:2: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 13:41:41 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:41:51 [error] 31514#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 13:41:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 13:41:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:42:06 [error] 31514#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 13:42:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 13:42:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): CN: UUID: 3000000 is DOWN: stale: 42, context: ngx.timer
+2015/12/10 13:42:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449783726}}, context: ngx.timer
+2015/12/10 13:42:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783726}}, context: ngx.timer
+2015/12/10 13:42:06 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 1000000_5 TERM: 6, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_vote: V: 1000000_5 #V: 1, context: ngx.timer
+2015/12/10 13:42:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 13:42:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783726}}, context: ngx.timer
+2015/12/10 13:42:06 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 1000000_5 TERM: 6, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:06 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449783726}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:06 [error] 31514#0: *2 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): count_cluster_commit: V: 1000000_5 #C: 1, context: ngx.timer
+2015/12/10 13:42:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 1, context: ngx.timer
+2015/12/10 13:42:17 [error] 31514#0: *14 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 3000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:20 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:42:31 [error] 31514#0: *14 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 3000000_2 TERM: 7, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:31 [error] 31514#0: *14 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 3000000_2 TERM: 7, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:31 [error] 31514#0: *14 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":false,"port":18080,"ts":1449783740},"3000000":{"ip":"127.0.0.1","leader":true,"port":38080,"ts":1449783751}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:31 [error] 31514#0: *14 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:42:46 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:42:48 [error] 31514#0: *16 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 2000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:57 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:42:58 [error] 31514#0: *14 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_vote: V: 3000000_3 TERM: 8, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:58 [error] 31514#0: *14 [lua] initialization.lua:2: c_log(): handle_cluster_state_change_commit: V: 3000000_3 TERM: 8, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:58 [error] 31514#0: *14 [lua] initialization.lua:2: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":false,"port":18080,"ts":1449783777},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449783768},"3000000":{"ip":"127.0.0.1","leader":true,"port":38080,"ts":1449783778}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:42:58 [error] 31514#0: *14 [lua] initialization.lua:2: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 13:43:09 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:43:21 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:43:35 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:43:48 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:44:02 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:44:14 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:44:25 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:44:38 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:44:49 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:45:02 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:45:12 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:45:26 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:45:39 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:45:49 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:46:04 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:46:14 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:46:28 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:46:41 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:46:55 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:47:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:47:18 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:47:33 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:47:44 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:47:54 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:48:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:48:21 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:48:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:48:45 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:48:59 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:49:12 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:49:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:49:32 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:49:42 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:49:54 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:50:08 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:50:21 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:50:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:50:46 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:50:57 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:51:12 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:51:26 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:51:40 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:51:53 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:52:08 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:52:18 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:52:28 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:52:42 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:52:54 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:53:09 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:53:24 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:53:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:53:47 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:53:58 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:54:13 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:54:28 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:54:41 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:54:55 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:55:05 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:55:17 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:55:30 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:55:45 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:55:59 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:56:09 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:56:20 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:56:30 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:56:41 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:56:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:57:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:57:16 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:57:27 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:57:41 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:57:52 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:58:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:58:13 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:58:27 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:58:37 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:58:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:59:05 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:59:15 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:59:30 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:59:44 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 13:59:56 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:00:10 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:00:20 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:00:34 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:00:47 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:01:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:01:11 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:01:24 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:01:38 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:01:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:02:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:02:14 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:02:24 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:02:35 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:02:49 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:03:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:03:18 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:03:32 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:03:46 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:04:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:04:13 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:04:25 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:04:40 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:04:55 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:05:09 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:05:24 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:05:38 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:05:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:06:04 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:06:19 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:06:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:06:41 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:06:53 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:07:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:07:13 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:07:26 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:07:39 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:07:53 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:08:08 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:08:20 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:08:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:08:42 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:08:54 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:09:08 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:09:21 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:09:35 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:09:48 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:09:58 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:10:09 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:10:20 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:10:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:10:41 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:10:56 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:11:10 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:11:24 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:11:34 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:11:45 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:11:56 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:12:08 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:12:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:12:35 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:12:46 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:13:00 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:13:15 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:13:27 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:13:42 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:13:56 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:14:09 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:14:23 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:14:33 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:14:46 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:15:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:15:12 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:15:25 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:15:38 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:15:49 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:16:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:16:16 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:16:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:16:41 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:16:52 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:17:02 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:17:14 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:17:27 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:17:42 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:17:54 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:18:09 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:18:19 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:18:32 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:18:42 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:18:53 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:19:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:19:20 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:19:35 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:19:48 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:20:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:20:16 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:20:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:20:45 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:20:56 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:21:07 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:21:19 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:21:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:21:42 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:21:53 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:22:04 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:22:19 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:22:29 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:22:40 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:22:52 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:23:02 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:23:15 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:23:27 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:23:38 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:23:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:24:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:24:16 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:24:26 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:24:40 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:24:53 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:25:08 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:25:19 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:25:33 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:25:48 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:26:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:26:12 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:26:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:26:33 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:26:43 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:26:58 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:27:09 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:27:20 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:27:30 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:27:44 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:27:56 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:28:09 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:28:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:28:34 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:28:48 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:29:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:29:11 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:29:25 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:29:35 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:29:49 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:30:04 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:30:14 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:30:27 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:30:38 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:30:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:31:05 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:31:16 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:31:26 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:31:37 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:31:50 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:32:04 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:32:14 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:32:26 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:32:40 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:32:50 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:33:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:33:13 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:33:23 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:33:34 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:33:46 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:33:59 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:34:12 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:34:25 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:34:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:34:48 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:35:00 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:35:11 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:35:23 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:35:38 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:35:48 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:35:58 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:36:12 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:36:25 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:36:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:36:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:37:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:37:16 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:37:28 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:37:40 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:37:52 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:38:05 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:38:20 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:38:30 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:38:45 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:38:58 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:39:10 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:39:21 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:39:33 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:39:47 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:40:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:40:12 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:40:24 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:40:36 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:40:48 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:40:59 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:41:09 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:41:21 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:41:33 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:41:48 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:42:00 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:42:12 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:42:27 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:42:42 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:42:56 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:43:07 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:43:22 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:43:35 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:43:50 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:44:01 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:44:11 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:44:26 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:44:40 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:44:53 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:45:07 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:45:18 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:45:28 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:45:39 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:45:53 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:46:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:46:17 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:46:32 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:46:45 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:46:55 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:47:07 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:47:19 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:47:29 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:47:42 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:47:57 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:48:12 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:48:25 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:48:38 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:48:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:49:05 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:49:19 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:49:33 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:49:45 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:49:55 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:50:07 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:50:18 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:50:33 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:50:48 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:51:00 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:51:13 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:51:27 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:51:38 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:51:49 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:52:03 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:52:14 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:52:27 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:52:42 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:52:55 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:53:10 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:53:24 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:53:35 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:53:49 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:54:04 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:54:17 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:54:31 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:54:43 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:54:57 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:55:11 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:55:24 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:55:34 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:55:49 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:56:00 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:56:15 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:56:30 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:56:43 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:56:58 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:57:11 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:57:26 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:57:39 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:57:51 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:58:06 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:58:17 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 14:58:28 [error] 31514#0: [lua] initialization.lua:2: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:00:16 [error] 31792#0: [lua] shm.lua:6: c_log(): OVERIDE ME PLEASE: worker_daemon:HandleInitialization()
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): grab_primary_lock: (PRIMARY) WID: 1000002, context: init_worker_by_lua*
+2015/12/10 15:00:16 [error] 31794#0: [lua] shm.lua:6: c_log(): INITIALIZE-WORKER: wid: 1000001 wport: 15001 primary: false #W: 1, context: init_worker_by_lua*
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): INITIALIZE-WORKER: wid: 1000002 wport: 15002 primary: true #W: 2, context: init_worker_by_lua*
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): DatanetCluster:initialize: IP: 127.0.0.1 PORT: 18080, context: ngx.timer
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): FORCE CLUSTER_VOTE, context: ngx.timer
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449788416}}, context: ngx.timer
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788416}}, context: ngx.timer
+2015/12/10 15:00:16 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): handle_cluster_state_change_vote: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_vote: V: 1000000_1 #V: 1, context: ngx.timer
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788416}}, context: ngx.timer
+2015/12/10 15:00:16 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): handle_cluster_state_change_commit: V: 1000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:00:16 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788416}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:00:16 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_commit: V: 1000000_1 #C: 1, context: ngx.timer
+2015/12/10 15:00:16 [error] 31795#0: [lua] shm.lua:6: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 1, context: ngx.timer
+2015/12/10 15:00:30 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:00:31 [error] 31794#0: *3 [lua] shm.lua:6: c_log(): handle_cluster_state_change_vote: V: 2000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:00:44 [error] 31795#0: [lua] shm.lua:6: c_log(): CN: UUID: 2000000 is NEW, context: ngx.timer
+2015/12/10 15:00:44 [error] 31795#0: [lua] shm.lua:6: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449788444},"2000000":{"ip":"127.0.0.1","port":28080,"ts":1449788431}}, context: ngx.timer
+2015/12/10 15:00:44 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788444},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449788431}}, context: ngx.timer
+2015/12/10 15:00:44 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_vote: V: 1000000_2 #V: 1, context: ngx.timer
+2015/12/10 15:00:44 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): handle_cluster_state_change_vote: V: 1000000_2 TERM: 3, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:00:44 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_vote: V: 1000000_2 #V: 2, context: ngx.timer
+2015/12/10 15:00:44 [error] 31795#0: [lua] shm.lua:6: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 15:00:44 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788444},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449788431}}, context: ngx.timer
+2015/12/10 15:00:44 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): handle_cluster_state_change_commit: V: 1000000_2 TERM: 3, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:00:44 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788444},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449788431}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:00:44 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:00:44 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_commit: V: 1000000_2 #C: 1, context: ngx.timer
+2015/12/10 15:00:44 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_commit: V: 1000000_2 #C: 2, context: ngx.timer
+2015/12/10 15:00:44 [error] 31795#0: [lua] shm.lua:6: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 2, context: ngx.timer
+2015/12/10 15:00:57 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:01:01 [error] 31794#0: *5 [lua] shm.lua:6: c_log(): handle_cluster_state_change_vote: V: 3000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): CN: UUID: 3000000 is NEW, context: ngx.timer
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449788471},"2000000":{"ip":"127.0.0.1","port":28080,"ts":1449788459},"3000000":{"ip":"127.0.0.1","port":38080,"ts":1449788461}}, context: ngx.timer
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788471},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449788459},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449788461}}, context: ngx.timer
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_vote: V: 1000000_3 #V: 1, context: ngx.timer
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_vote: V: 1000000_3 #V: 2, context: ngx.timer
+2015/12/10 15:01:11 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): handle_cluster_state_change_vote: V: 1000000_3 TERM: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_vote: V: 1000000_3 #V: 3, context: ngx.timer
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788471},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449788459},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449788461}}, context: ngx.timer
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_commit: V: 1000000_3 #C: 1, context: ngx.timer
+2015/12/10 15:01:11 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): handle_cluster_state_change_commit: V: 1000000_3 TERM: 4, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:01:11 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788471},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449788459},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449788461}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:01:11 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_commit: V: 1000000_3 #C: 2, context: ngx.timer
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_commit: V: 1000000_3 #C: 3, context: ngx.timer
+2015/12/10 15:01:11 [error] 31795#0: [lua] shm.lua:6: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 3, context: ngx.timer
+2015/12/10 15:01:21 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:01:34 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:01:34 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:01:34 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:01:46 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:01:46 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:01:46 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:02:00 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): CN: UUID: 3000000 is DOWN: stale: 31, context: ngx.timer
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449788520},"2000000":{"ip":"127.0.0.1","port":28080,"ts":1449788509}}, context: ngx.timer
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788520},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449788509}}, context: ngx.timer
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_vote: V: 1000000_4 #V: 1, context: ngx.timer
+2015/12/10 15:02:00 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): handle_cluster_state_change_vote: V: 1000000_4 TERM: 5, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_vote: V: 1000000_4 #V: 2, context: ngx.timer
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788520},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449788509}}, context: ngx.timer
+2015/12/10 15:02:00 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): handle_cluster_state_change_commit: V: 1000000_4 TERM: 5, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:02:00 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788520},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449788509}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:02:00 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_commit: V: 1000000_4 #C: 1, context: ngx.timer
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_commit: V: 1000000_4 #C: 2, context: ngx.timer
+2015/12/10 15:02:00 [error] 31795#0: [lua] shm.lua:6: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 2, context: ngx.timer
+2015/12/10 15:02:03 [error] 31794#0: *10 [lua] shm.lua:6: c_log(): handle_cluster_state_change_vote: V: 3000000_1 TERM: 2, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:02:12 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:02:17 [error] 31794#0: *10 [lua] shm.lua:6: c_log(): handle_cluster_state_change_vote: V: 3000000_2 TERM: 6, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:02:17 [error] 31794#0: *10 [lua] shm.lua:6: c_log(): handle_cluster_state_change_commit: V: 3000000_2 TERM: 6, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:02:17 [error] 31794#0: *10 [lua] shm.lua:6: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":false,"port":18080,"ts":1449788532},"2000000":{"ip":"127.0.0.1","leader":false,"port":28080,"ts":1449788535},"3000000":{"ip":"127.0.0.1","leader":true,"port":38080,"ts":1449788537}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:02:17 [error] 31794#0: *10 [lua] shm.lua:6: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:02:25 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:02:35 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:02:35 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:02:35 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:02:35 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:02:35 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:02:45 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:02:45 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:02:45 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:02:45 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:02:45 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:03:00 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:03:00 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:03:00 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:03:00 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:03:00 [error] 31795#0: [lua] shm.lua:6: c_log(): CN: UUID: 2000000 is DOWN: stale: 33, context: ngx.timer
+2015/12/10 15:03:00 [error] 31795#0: [lua] shm.lua:6: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449788580},"3000000":{"ip":"127.0.0.1","port":38080,"ts":1449788551}}, context: ngx.timer
+2015/12/10 15:03:00 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788580},"3000000":{"ip":"127.0.0.1","leader":false,"port":38080,"ts":1449788551}}, context: ngx.timer
+2015/12/10 15:03:00 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:03:00 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: connect() failed (111: Connection refused), context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): ERROR: http_cluster_request FAILED: connection refused, context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): CN: UUID: 2000000 is DOWN: stale: 47, context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): CN: UUID: 3000000 is DOWN: stale: 43, context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): start_new_cluster_vote: CN: {"1000000":{"ip":"127.0.0.1","port":18080,"ts":1449788594}}, context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_vote: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788594}}, context: ngx.timer
+2015/12/10 15:03:14 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): handle_cluster_state_change_vote: V: 1000000_6 TERM: 8, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_vote: V: 1000000_6 #V: 1, context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): ALL CLUSTER VOTES RECEIVED, context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): broadcast_cluster_state_change_commit: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788594}}, context: ngx.timer
+2015/12/10 15:03:14 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): handle_cluster_state_change_commit: V: 1000000_6 TERM: 8, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:03:14 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): compute_partition_table: CN: {"1000000":{"ip":"127.0.0.1","leader":true,"port":18080,"ts":1449788594}}, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:03:14 [error] 31794#0: *2 [lua] shm.lua:6: c_log(): finalize_cluster_state_change_commit, client: 127.0.0.1, server: , request: "POST /__cluster/ HTTP/1.1", host: "127.0.0.1"
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): count_cluster_commit: V: 1000000_6 #C: 1, context: ngx.timer
+2015/12/10 15:03:14 [error] 31795#0: [lua] shm.lua:6: c_log(): COMMIT SUCCEEDED ON ALL CLUSTER-NODES: #CN: 1, context: ngx.timer
+2015/12/10 15:03:25 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:03:40 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:03:51 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:04:03 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:04:15 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:04:29 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:04:42 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:04:56 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:05:08 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:05:19 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:05:32 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:05:43 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:05:56 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:06:06 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:06:20 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:06:33 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:06:43 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:06:58 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:07:08 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:07:22 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:07:35 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:07:49 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:08:00 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:08:11 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:08:26 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:08:37 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:08:47 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:08:59 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:09:14 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:09:24 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:09:38 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:09:52 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:10:05 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:10:15 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:10:25 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:10:35 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:10:47 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:11:01 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:11:14 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:11:29 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:11:39 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:11:50 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:12:05 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:12:19 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:12:33 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:12:46 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:13:01 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:13:11 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:13:21 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:13:35 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:13:47 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:14:02 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:14:17 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:14:29 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:14:40 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer
+2015/12/10 15:14:51 [error] 31795#0: [lua] shm.lua:6: c_log(): analyze_cluster_status: NO CLUSTER CHANGE, context: ngx.timer

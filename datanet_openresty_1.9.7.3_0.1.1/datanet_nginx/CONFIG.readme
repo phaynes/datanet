@@ -1,0 +1,80 @@
+
+CONFIGURATION
+
+FILE LOCATIONS: 
+  Datanet OpenResty Agent (DORA) has two configuration files, normally installed at
+    1. /usr/local/datanet/conf/minimal_nginx.conf
+    2. /usr/local/datanet/conf/minimal_datanet_config.lua
+
+  Datanet configuration files are found in directory: /usr/local/datanet/conf/
+  Datanet lua files (the Agent's engine) are found in directory: /usr/local/openresty/lualib/datanet/
+
+
+CONFIG FILE
+  GENERAL: 
+    Non Datanet specific Nginx configuration parameters can be found at 
+      * beginner's guide to Nginx: http://nginx.org/en/docs/beginners_guide.html
+      * ngx_lua configuration parameters: https://github.com/openresty/lua-nginx-module#directives
+
+  NGINX.conf: minimal_nginx.conf
+    Datanet specific configurations in minimal_nginx.conf are the following:
+      1.) include datanet_shared_memory_tables.conf;
+        specifies ngx.shared.DICT's used in Datanet
+      2.) init_by_lua_block { require("datanet.init"); }
+        initializes the DORA engine
+      3.) init_worker_by_lua_file /usr/local/openresty/lualib/datanet/init_worker.lua;
+        starts each DORA worker
+      4.) include datanet_internal_server.conf;
+        Datanet communicates between workers via sticky UnixSockets (initialized by Datanet specific Lua call: ngx.unique_socket_per_worker()
+      5.) include datanet_callback_server.conf;
+        Datanet Central component communicated to each DORA via HTTPS on a port initialized in this file
+
+
+  DATANET configuration: datanet_config.lua
+    The file datanet_config.lua contains a Lua module that defines
+      _C.config = {
+         name    = "SERVER_0",                   -- UNIQUE DORA NAME
+         central = {
+           name     = "D1",                      -- CENTRAL NAME
+           https    = {
+             hostname = "USA",                   -- CENTRAL HOSTNAME (OUTGOING)
+             port     = 10101                    -- CENTRAL PORT (OUTGOING)
+           },
+           callback = {
+             hostname = "localhost",             -- DORA HOSTNAME (INCOMING)
+             port     = 10080,                   -- DORA PORT (INCOMING)
+             key      = "UNIQUE KEY PER AGENT 0" -- UNIQUE DORA KEY
+           }
+         }
+       };
+
+    Each individual DORA must set:
+      1.) UNIQUE DORA NAME
+      2.) DORA HOSTNAME (INCOMING)
+      3.) DORA PORT (INCOMING)
+      4.) UNIQUE DORA KEY
+  
+
+
+EXTENDED CONFIG FILE OPTIONS:
+  SUMMARY:
+    1.) Datanet agents can from clusters
+    2.) Datanet agents can set local-caches maximum size
+      _C.config = {
+             name, central = {},
+             cluster = {
+               ip   = "localhost", -- IP for Cluster GOSSIP-PINGs
+               port = 9080         -- PORT for Cluster GOSSIP-PINGs
+             },
+             cache  = {
+               max_bytes = 100000   -- MAXIMUM BYES FOR LOCAL CACHE
+             },
+             deltas = {
+               max_bytes = 1000     -- MAXIMUM BYES FOR DELTA STORAGE
+             }
+       };
+  NOTES:
+    1.) cluster requires the following directive in nginx.conf's http section
+          include datanet_cluster_server.conf;
+    
+

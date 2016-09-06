@@ -1,0 +1,19 @@
+frontend fe_loadbalancer
+        bind 0.0.0.0:20300
+        mode tcp
+        log global
+        timeout client 3600s
+        backlog 4096
+        maxconn 50000
+        default_backend be_zcentrals
+
+backend be_zcentrals
+        mode  tcp
+        option log-health-checks
+        option redispatch
+        option tcplog
+        balance roundrobin
+        server web1 127.0.0.1:20301
+        timeout connect 1s
+        timeout queue 5s
+        timeout server 3600s

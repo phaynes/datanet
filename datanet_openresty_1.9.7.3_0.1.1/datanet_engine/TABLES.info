@@ -1,0 +1,69 @@
+
+DAEMONS:
+  GC_REAPER:                GCV_SUMMARIES(G)
+  AGENT_DIRTY_DELTA_REAPER: DIRTY_DELTAS(G)
+  AGENT_TOSYNC_KEYS_REAPER: TO_SYNC_KEYS(G)
+
+    NOTE: AGENT_TOSYNC_KEYS_REAPER calls fetch_gc_version()
+          |-> store GCV in TO_SYNC_KEYS
+
+
+SERVER-METHODS:
+  PropogateSubscribe:       TO_SYNC_KEYS(G)
+                            USER_CHANNEL_SUBSCRIPTIONS(G)
+                            REPLICATION_CHANNELS           -> UNUSED
+                            DEVICE_CHANNELS                -> UNUSED
+  PropogateGrantUser:       USER_CHANNEL_PERMISSIONS(G)
+
+  PRIMARY-ONLY:
+    SubscriberGeoStateChange: GEO_NODES(L)
+    (ACK)AgentOnline/Ping:    GEO_NODES(L)
+                              CONNECTION_STATUS(L)
+                              DIRTY_KEYS(G)
+                              AGENT_INFO(L)
+                              TO_SYNC_KEYS(G)
+      REWORK: do_remove_sync_ack_agent_online() calls zds_remove_key
+              |-> InternalRemoveKey()
+
+
+
+PRIMARY-METHODS:
+  AgentStationUser: STATIONED_USERS(L)
+                    AGENT_PERMISSONS                -> UNUSED
+                    USER_CHANNEL_PERMISSIONS(G)
+                    AGENT_SUBSCRIPTIONS             -> UNUSED
+                    USER_CHANNEL_SUBSCRIPTIONS(G)
+                    TO_SYNC_KEYS(G)
+
+
+AUTHORIZATION:
+  AgentAuthenticate:              USER_AUTHENTICATION(G)
+  AgentGetUserChannelPermissions: USER_CHANNEL_PERMISSIONS(G)
+                                  USER_CHANNEL_SUBSCRIPTIONS(G)
+
+  InternalClientAuthorize: BASIC:            USER_AUTHENTICATION(G)
+                           READ/WRITE/STORE: DOCUMENTS(K)
+                           READ/WRITE/STORE: USER_CHANNEL_SUBSCRIPTIONS(G)
+                           READ/WRITE/STORE: USER_CACHED_KEYS(K)
+                           SUBSCRIBE:        USER_CHANNEL_PERMISSIONS(G)
+  NGINX-WORKER: [READ/WRITE/STORE] must be REWORKED to be KQK-WORKER
+
+    If KEY_TO_RCHANS and USER_CACHED_KEYS are GLOBAL ->
+    |-> ALL of AUTHORIZE can be GLOBAL
+
+
+REWORK: 
+  CACHE:
+    PrimaryCache sends AgentCache -> AckAgentCache must be sent to KQK-WORKER
+    PrimaryEvict sends AgentEvict -> AckAgentEvict must be sent to KQK-WORKER
+
+
+  LOCAL:
+     ClientFetch/Find must be sent to KQK-WORKER
+     ClientGetClusterInfo must be sent to PRIMARY
+       TABLE: CONNECTION_STATUS(L)
+     ClientIsolation      must be sent to PRIMARY
+       TABLE: CONNECTION_STATUS(L)
+
+  
+

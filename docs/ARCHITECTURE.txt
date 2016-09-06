@@ -1,0 +1,1396 @@
+
+-------------------------------------------------------------------------------
+ Datanet
+-------------------------------------------------------------------------------
+
+Title: Datanet Architecture
+
+  Verson: 1.0.4
+  Author: Russell Sullivan
+  Date:   Jul 26, 2016
+
+
+-------------------------------------------------------------------------------
+ Datanet
+-------------------------------------------------------------------------------
+
+  Datanet is a global system of connected databases that maintains 
+  consistency through Viral Commutative Replication (VCR). Datanet is designed
+  to sync data between multiple (e.g. 2-100) DataCenter databases and many more
+  (e.g. thousands-billions) device embedded databases.
+
+  Datanet aims:
+   1.) To achieve 100% uptime
+   2.) To remain 100% available, never losing data when Devices, ClusterNodes,
+       or entire Datacenters go offline or down
+   3.) To replicate & synchronize data on a global level w/ minimal latency
+   4.) To allow devices to continue functioning offline w/o data loss for
+       a short amount of time (e.g. 10 seconds or 10 minutes)
+
+
+-------------------------------------------------------------------------------
+ Summary of Architecture
+-------------------------------------------------------------------------------
+
+  Datanet syncronizes data between many geo graphically distributed databases
+  and insures correctness of replication under numerous failure scenarios
+  using Viral Commutative Replication.
+
+  The core of Datanet consists of multiple DataCenter components which 
+  collectively form a fully connected mesh cluster. DataCenter components
+  are referred to as DC_Clusters and act as the data-resevoirs of Datanet.
+  ALL DC_Clusters in Datanet sync ALL modifications they receive with ALL
+  other DC_Clusters in Datanet and if a DC_Cluster goes offline (or comes 
+  online for the first time), it must first be resynced (or populated) before 
+  it can be considered live.
+
+  DC_Clusters serve to synchronize data between Datanet's many devices. A 
+  device is connected to a single DC_Cluster, and the device pushes all of its 
+  modifications TO this single DC_Cluster and receives all of its updates (from
+  other devices) FROM this single DC_Cluster. Devices will connect to the 
+  DC_Cluster nearest to them. Synchronization between 2 devices connected to 2
+  different DC_Clusters will start at the first device, then travel to his 
+  DC_Cluster, then travel to the other device's DC_Cluster, and finally travel 
+  to the other device.  
+
+  Datanet supports Users which are authenticated via username/password 
+  logins. Users station themselves on devices. A User subscribes to 
+  (publication) channels. When a Document is modified, any User who subscribed
+  to this Document's channel will receive the modification (on all devices on 
+  which the User is stationed).
+
+
+-------------------------------------------------------------------------------
+ The Players
+-------------------------------------------------------------------------------
+
+  The first player in Datanet's architecture is the Agent. An Agent resides 
+  on a device. A device can be a mobile-phone-app, an IoT-app, a browser-app, 
+  or an app-server. Agents have their own (local) database and connect Clients 
+  to ClusterNodes.
+
+  The second player in Datanet's architecture is the Client. In the case 
+  where the device is an app-server, the client is an app-server library (e.g. 
+  a Lua library in OpenResty hookin into the C++ Agent). The Client & Agent
+  are within the same process and communicate via function calls.
+
+  Example Client & Agent configurations:
+    App-Server: Ruby-Client <-UnixSocket-> Localhost-Agent (OpenResty process)
+    iOS:        Both Client & Agent embedded in mobile-app as iOS lib
+    Browser:    Both Client & Agent embedded in browser-app as
+                Javascript library
+
+  The third player in Datanet's architecture is the ClusterNode. 
+  ClusterNodes collectively form clusters in DataCenters, referred to as 
+  DC_Clusters. For instance, 4 ClusterNodes form a cluster in an EC2 region. 
+  DC_Clusters act as proxies for underlying (distributed) databases located in 
+  the same DataCenter. For instance a DC_Cluster in an EC2 region proxies to a 
+  MongoDB-cluster located in the same EC2 region. ClusterNodes are themselves 
+  stateless and handle only the serialization of data-I/O (required in VCR) and
+  also the publishing of data-modifications to remote DC_Clusters & Subscribers.
+
+  Datanet supports multiple DC_Clusters in geographically distributed 
+  DataCenters, forming Datanet's GeoCluster. All DC_Clusters in the GeoCluster
+  contain full copies of ALL the data in Datanet, they act as hot-failovers for
+  one another. Agents are free to switch from one DC_Cluster to another.
+  VCR insures Agents switching between DataCenters will never lose 
+  data nor miss updates on data they subscribe to; the switch is seamless for 
+  both the Agent and Datanet as a whole.
+
+
+-------------------------------------------------------------------------------
+ Data Model
+-------------------------------------------------------------------------------
+
+  Datanet is a DocumentStore: all data in Datanet is represented as JSON
+  data-structures. JSON supports [numbers, strings, objects, arrays] and 
+  objects & arrays are nestable. Datanet supports all possible operations 
+  on JSON data-structures and performs all modifications as commutative 
+  operations (the C in VCR).
+
+  Datanet also provides advanced data-structures. The current list of 
+  advanced data-structures is: CAPPED-LIST (e.g. stack or queue), ORDERED-LIST, 
+  & LARGE-LISTS (experimental). These advanced data-structures are nestable
+  inside Documents & a single Document can contain multiple advanced
+  data-structures.
+
+
+-------------------------------------------------------------------------------
+ PubSub Data Propagation
+-------------------------------------------------------------------------------
+
+  Datanet propagates data PubSub style. Documents in Datanet specify 
+  (publication) channels in the document itself (field-name: '_channels:[]').
+   Users are granted read/write access to channels (by AdminUsers). An Agent 
+  requires write privileges to one of a document's channels in order to modify 
+  the document.
+
+  When an Agent modifies a document, the modifications are replicated to ALL 
+  Agent subscribing to this document's channels. Agents subscribing to a 
+  channel are referred to as Subscribers. For example, when an Agent creates or 
+  modifies a document containing '_channels:[1,2]' the modifications are 
+  replicated to ALL Subscribers of channels 1 AND 2.
+
+
+-------------------------------------------------------------------------------
+ Replication Data Flow
+-------------------------------------------------------------------------------
+
+  Data modifications originate at Agents. A modification is applied at the 
+  Agent's local DB and then replicated as a DELTA to the DC_Cluster to which 
+  the Agent is currently connected (in the example below DC1). The DELTA is 
+  then replicated to ALL other DC_Clusters (abbreviated: DC2 & DC3) in Datanet.
+  When any DC_Cluster (DC1,DC2,DC3) receives a DELTA it first applies the DELTA
+  to its local DB & then replicates the DELTA to ALL locally-connected
+  Subscribers (of the Document's channels).
+
+  Diagram of the flow of a DELTA:
+
+                                        +-->Subscriber_B
+                            +---------->|
+      +---------+   +----   |           +-->Subscriber_C
+      | Agent_A |-->|DC1|-->|                 
+      +---------+   +----   |   +---+   +-->Subscriber_D
+           |          |     +-->|DC2|-->|
+           |          |     |   +---+   +-->Subscriber_E
+           <----ACK---<     |
+                            |   +---+   +-->Subscriber_F
+                            +-->|DC3|-->|
+                                +---+   +-->Subscriber_G
+                                        
+
+  Examples:
+    DC1 is located in CA (USA), DC2 is located in TKY (JAP)
+    Agent_A is located in Las Vegas and Subscriber_B is located in Seattle, 
+    the DELTA travels via DC1 (in CA), making only two hops.
+    For Subscriber_F located in Seoul (KOR), the DELTA from Agent_A will 
+    first go to DC1 (in CA) and from there to DC2 (in TKY) and from there to 
+    Subscriber_F, making three hops.
+
+  VCR allows Deltas to be live before they are globally ACKed. Best case 
+  scenarios (e.g. low latency between DataCenters {e.g. 100ms CA<->TKY} and low
+  last-mile latencies to EndUsers {e.g. 10ms}) would yield system-wide GLOBAL 
+  replication of ANY modification between EndUsers within 120ms. More 
+  realistically (e.g. in 2015: CA<->TKY DataCenter Latencies: 200ms+, Last-Mile 
+  latency to EndUsers: 50ms) would be system-wide GLOBAL replication latencies 
+  between EndUsers in the 300-500ms range.
+
+
+  VCR uses asyncronous replication, which is the only model possible of 
+  achieving low latency when replicating data at the global scale. Nonetheless 
+  VCR guarantees Datanet-wide strong eventual consistency (SEC) on ALL writes. 
+  The Datanet is the only system to provide low latency and strong data 
+  guarantees on the global scale.
+
+
+-------------------------------------------------------------------------------
+ SEC & CRDTs
+-------------------------------------------------------------------------------
+
+  Strong eventual consistency (SEC) is the replication guarantee provided by 
+  Commutative Replicated Data Types (CRDTs). CRDTs have the unique property of 
+  being able to apply replication out-of-order and still converge to the same 
+  final result as if the replication had been applied in-order. In other words, 
+  in SEC the order of application of replication does not matter. Being freed 
+  from the ordering-of-replication contraint allows SEC to support concurrent 
+  replication from different sources (e.g. Devices & DataCenters) without 
+  sacrificing strong data guarantees.
+
+  SEC is superior to classic eventual consistency which has the fundamental
+  weakness of throwing away the data that loses during conflict resolution,
+  a subtle tradeoff that effectively voids any notion of legit write guarantees.
+
+
+-------------------------------------------------------------------------------
+ Robustness
+-------------------------------------------------------------------------------
+
+  Datanet is modeled after the Internet's original purpose of being a 
+  system designed to function during & after a nuclear war. Datanet can 
+  survive a multitude of concurrent failures without losing data or 
+  availability.
+
+  Datanet supports the following:
+    1.) Agent can make modifications while offline and SEC guarantees hold
+        (so long as the Agent reconnects to Datanet within a short 
+         period of time -> determined by a SLA (e.g. 10 seconds or 10 minutes))
+    2.) ClusterNodes can crash or be added dynamically (cluster elasticity) and
+        no data is lost
+    3.) An entire DC_Cluster can become unreachable and no data is lost
+    4.) Network partitions in DataCenters can happen and no data is lost
+        (including during partition & after partition heals)
+    5.) Multiple concurrent DataCenters can become unreachable and no data
+        is lost
+    6.) ALL DataCenters in Datanet can become unreachable and no data
+        is lost
+  In the final scenario (#6: ALL DataCenters unreachable), replication is not 
+  possible but ALL Agents can still perform writes locally (availability is 
+  diminished not lost). This means no data is lost, replication is on hold 
+  until a DC_Cluster comes back online. Once a single DataCenter comes back 
+  online, Datanet-wide replication will resume and no data will have been lost
+  (system-wide).
+
+  This is how Datanet strives for the (absurd) goal of 100% uptime.
+
+
+-------------------------------------------------------------------------------
+ VIRAL Commutative Replication
+-------------------------------------------------------------------------------
+
+  The name Viral Commutative Replication uses the term VIRAL as a metaphor to 
+  describe how data modifications spread rapidly, infect other devices, and 
+  survive until they have been explicitly eradicated. Every data modification 
+  in Datanet produces a DELTA and once this DELTA has been passed onto 
+  another player in Datanet (e.g DC or Subscriber), it becomes that 
+  player's responsibility to keep retransmitting the DELTA until the DELTA has
+  been explicitly eradicated (by being globally ACKed). In other words, each 
+  player infected with a DELTA does its best to infect the rest of Datanet 
+  with the DELTA so long as that player survives. This Virality of replication 
+  yields extreme robustness to numerous failure scenarios.
+
+  Example:
+    Given a two DC_Cluster setup, where each DC_Cluster has 2 Agents locally
+    connected, a single DELTA's flow is the following:
+      1.) Agent1 authors DELTA and sends it to his DC_Cluster (DC_1)
+      2.) from DC_1 DELTA is sent to Subscribers (Sub2) connected to DC_1
+      3.) from DC_1 DELTA is sent to DC_2
+      4.) from DC_2 DELTA is sent to Subscribers (Sub3,Sub4) connected to DC_2
+
+  The DELTA has spread to ALL 4 Subscribers (authoring Agent included) and to 2 
+  DC_Clusters. At this point they are all infected with the DELTA, if any of 
+  these 6 players loses connectivity, the DELTA will not be globally removed 
+  from the system. Once the offline player comes back online, he will do his 
+  best to reinfect Datanet with the DELTA.
+
+  Further, once a DELTA exists, it will survive so long as a single player 
+  containing the DELTA survives. Given the 6 players in the example above, any 
+  5 of the players (including both DC_Clusters) can fail simultaneously and the
+  DELTA will still ultimately survive. Once a DC_Cluster comes back online, the
+  surviving player will reinfect the ENTIRE Datanet with the DELTA.
+
+
+-------------------------------------------------------------------------------
+ Queries
+-------------------------------------------------------------------------------
+
+  Datanet proxies modifications to each player's underlying database (for 
+  both DC_Clusters & Agents). Datanet's players are only involved in the 
+  modification of data, NOT in the querying of data. This means the querying of 
+  data can be delegated to the underlying database layer directly, completely 
+  bypassing Datanet (for queries)*. 
+
+  In DataCenter, Datanet currently supports MongoDB, Redis, & Memory as
+  plugins (next plans are to support ElasticSearch).
+
+  In the browser, Datanet supports LocalStorage as a plugin (next plans are 
+  to support IndexedDB & WebSQL (where available)).
+
+  On mobile apps, Datanet supports SQLlite and provides libraries to help 
+  query JSON data-structures/documents in SQL.
+
+  On the app-server, Datanet supports MongoDB, Redis, LMDB,
+  ngx.shared.DICT, & Memory (next plans are to support KyotoCabinet, RocksDB).
+
+  *A Datanet setup that wants Datanet to handle DataCenter NetworkPartition 
+   logic requires DataCenter queries to be proxied via Datanet.
+
+
+-------------------------------------------------------------------------------
+ Detailed DELTA FLOW
+-------------------------------------------------------------------------------
+
+  All modifications (CreateDocument, ModifyDocument, RemoveDocument) are framed 
+  as DELTAs in Datanet. All DELTAs are created by Agents and move from 
+  Agent to DC_Cluster (to other DC_Clusters) to Subscribers.
+
+  The following is a detailed diagram of and how a DELTA flows through a single 
+  DC_Cluster to a Subscriber connected to the same DC_Cluster:
+
+  Legend:
+   AD              : AgentDelta
+   CD              : ClusterDelta
+   GD              : GeoDelta
+   CSD             : ClusterSubscriberDelta
+   SD              : SubscriberDelta
+   AgentMaster     : responsible for serializing I/O FROM the Agent
+                     (e.g. forward AgentDeltas FROM the Agent).
+  KeyMaster        : responsible for serializing data I/O ON a single key
+                     (the primary key of a Document).
+  SubscriberMaster : is responsible for serializing data I/O TO a Subscriber
+                     (e.g. send SubscriberDeltas/Merges TO Subscriber)
+
+                +---------------------------------------+
+                |            DC_Cluster ONE             |
+                |---------------------------------------|       +-------------+
+                |                                       |       |     ALL     |
+ +-----+        |   +-----------+      +---------+   +-----GD-->|    Other    |
+ |Agent|---AD------>|AgentMaster|->CD->|KeyMaster|-->|  |       | DC_Clusters |
+ +-----+        |   +-----------+      +---------+   |  |       +-------------+
+                |                                    |  |
+ +----------+   |         +----------------+         |  |
+ |Subscriber|<------SD----|SubscriberMaster|<-CSD----+  |
+ +----------+   |         +----------------+            |
+                |                                       |
+                +---------------------------------------+
+
+ The following diagram is a continuation of the previous diagram illustrating a 
+ GeoDelta arriving at a remote DataCenter (DC2) and its flow to a connected 
+ Subscriber.
+
+                +---------------------------------------+
+                |            DC_Cluster TWO             |
+                |---------------------------------------|
+                |                                       |
+ +----+         |   +-----------+      +---------+      |
+ |DC_1|---GD------->|AgentMaster|->CD->|KeyMaster|-->|  |
+ +----+-        |   +-----------+      +---------+   |  |
+                |                                    |  |
+ +----------+   |         +----------------+         |  |
+ |Subscriber|<------SD----|SubscriberMaster|<-CSD----+  |
+ +----------+   |         +----------------+            |
+                |                                       |
+                +---------------------------------------+
+
+  * Note the similarities between the flow of AgentDeltas(AD) & GeoDeltas(GD)
+
+  Example:
+  AgentA & AgentB are subscribed to channel 1 and AgentA modifies a Document
+  with {key:'X', _channel:1}, the following happens:
+    10.) AgentA sends an AgentDelta to its AgentMaster
+    20.) AgentMaster(A) looks up KeyMaster(X) in its partition-table
+    30.) AgentMaster(A) sends a ClusterDelta to KeyMaster(X)
+    40.) KeyMaster(X) applies DELTA locally (saves resulting document to DB)
+    50.) KeyMaster(X) sends a GeoDelta to ALL other DC_Clusters
+    60.) KeyMaster(X) looks up all LOCAL Subscribers to channel(1)
+         -> AgentA & AgentB are subscribed to this channel
+            We ignore AgentA in this case as it is the AUTHOR of the DELTA
+    70.) KeyMaster(X) sends a ClusterSubscriberDelta to SubscriberMaster(B)
+    80.) SubscriberMaster(B) sends a SubscriberDelta to Subscriber(B)
+    90.) Subscriber(B) applies DELTA locally (saves resulting document to DB)
+
+  AgentC now subscribes to _channel:1 and is connected to DC_Cluster_2. AgentA
+  modifies the same document {key:'X'}, the following additional steps happen
+  (between steps 50 & 60):
+    51.) At DC_2, AgentMaster(KeyMaster_X) receives GeoDelta
+    52.) AgentMaster(KM_X) looks up KeyMaster(X) in its partition-table
+    53.) AgentMaster(KM_X) sends a ClusterDelta to KeyMaster(X)
+    54.) KeyMaster(X) looks up all LOCAL Subscribers to replication-channel(1)
+         -> AgentC is subscribed to this channel and LOCALLY connected
+    55.) KeyMaster(X) sends a ClusterSubscriberDelta to SubscriberMaster(C)
+    56.) SubscriberMaster(C) sends a SubscriberDelta to Subscriber(C)
+    57.) Subscriber(C) applies DELTA locally (saves resulting document to DB)
+
+
+  GeoDelta ACKs:
+  When a GeoDelta has been persisted at a remote DC_Cluster, it responds to the
+  DataCenter that sent the GeoDelta (OriginDC_Cluster) with an AckGeoDelta.
+  An AckGeoDelta is for K-safety of persisting Deltas
+  The flow of an AckGeoDelta is illustrated below:
+
+  FIRST: Remote DC_Clusters (e.g. DC_Cluster_2) ACK the GeoDelta
+
+                 +-----------------------------------+
+                 |          DC_Cluster TWO           |
+                 |-----------------------------------|
+                 |                                   |
+ +----+          | +-----------+         +---------+ |
+ |DC_1|<--GD_ACK---|AgentMaster|<-GD_ACK-|KeyMaster| |
+ +----+          | +-----------+         +---------+ |
+                 |                                   |
+                 +-----------------------------------+
+
+  SECOND: The OriginDC_Cluster for the DELTA (e.g. DC_1) sums the number of
+          Geo-Acks and when the number is equal to the total number of
+          DC_Clusters in DataNet, the DELTA has been globally ACKed(persisted)
+          and the KeyMaster sends a GeoCommitDelta to ALL remote DC_Clusters
+
+  Legend:
+   GCD : GeoGommitDelta
+
+                    +-------------------+
+                    |   DC_Cluster ONE  |
+                    |-------------------|       +-------------+
+                    |                   |       |     ALL     |
+  DC_2-->--+        |  +---------+   +----GCD-->|    Other    |
+  DC_3-->-->--GD_ACK-->|KeyMaster|-->|  |       | DC_Clusters |
+  DC_4-->--+        |  +---------+      |       +-------------+
+                    |                   |
+                    +-------------------+
+
+
+  THIRD: Remote DC_Clusters receive the GeoCommitDelta, if the Delta
+         has been applied send an AckGeoCommitDelta.
+         AckGeoCommitDelta means this DC no longer needs to persist the Delta
+
+  Legend:
+   AGCD : AckGeoGommitDelta
+
+               +---------------------+
+               |    DC_Cluster 2-4   |
+               |---------------------|
+               |                     |           +-------------------+
+  +----+       |  +-----------+   +-----AGCD---->|   DC_Cluster ONE  |
+  |DC_1|---GCD--->|AgentMaster|-->|  |           +-------------------+
+  +----+       |  +-----------+      |
+               |                     |
+               +---------------------+
+
+
+  FOURTH: The OriginDC_Cluster for the DELTA (e.g. DC_1) sums the number of
+          AckGeoGommitDeltas and when the number is equal to the total number of
+          DC_Clusters in DataNet, the DELTA has been globally APPLIED
+          and the KeyMaster sends a GeoSubsubscriberCommitDelta
+          to ALL DC_Clusters
+
+  Legend:
+   GSCD : GeoSubsubscriberCommitDelta
+
+                    +-------------------+
+                    |   DC_Cluster ONE  |       +-------------+
+                    |-------------------|       |             |
+                    |                   |       |     ALL     |
+  DC_2-->--+        |  +---------+   +---GSCD-->| DC_Clusters |
+  DC_3-->-->--AGCD---->|KeyMaster|-->|  |       |             |
+  DC_4-->--+        |  +---------+      |       +-------------+
+                    |                   |
+                    +-------------------+
+
+
+  FIFTH: When a DC_Cluster receives a GeoSubsubscriberCommitDelta it will
+         permanently remove the Delta and send CommitSubscriberDeltas
+         to ALL locally connected Subscribers
+
+  Legend:
+   CSD : CommitSubscriberDelta
+
+               +---------------------+
+               |    DC_Cluster 2-4   |
+               |---------------------|
+               |                     |
+  +----+       |  +-----------+      |
+  |DC_1|---GSCD-->|AgentMaster|-->|  |
+  +----+       |  +-----------+   |  |
+               |                  |  |
+ +----------+  |                  |  |
+ |Subscriber|<-------CSD----<-----+  |
+ +----------+  |                     |
+               +---------------------+
+
+  SIXTH: When a Subscriber receives a CommitSubscriberDelta it removes the
+         corresponding SubscriberDelta (or AgentDelta) and the Delta has been
+         ERADICATED
+  
+  SUMMARY: Delta removal is a TWO PHASE COMMIT protocol, a lot of things have
+           to happen correctly for a Delta to be removed. This is the desired
+           behavior, it is safer to NOT remove a delta. Deltas that should
+           have been removed but were not due to a 2PC failure, will be 
+           removed on retransmission.
+
+
+-------------------------------------------------------------------------------
+ DETAILS of VCR
+-------------------------------------------------------------------------------
+
+  On initialization each Agent is assigned a globally unique UUID from its DC,
+  referred to as the AgentUUID.
+
+  Every time an Agent modifies a Document, a globally unique ID for the DELTA 
+  is created by combining a per-key unique AgentVersion with the AgentUUID to 
+  form the globally unique DELTA_ID: [AgentUUID, KeyName, AgentVersion] tuple.
+
+  This DELTA w/ its globally unique DELTA_ID is sent to this Agent's DC_Cluster 
+  where it (either directly or indirectly via other DC_Clusters) is sent to ALL 
+  Subscibers of this DELTA's channel(s).
+
+  The DELTA is then applied (i.e. a new Document reflecting the DELTA is saved) 
+  at ALL DC_Clusters and ALL Subscribers.
+
+  The DELTA is not yet removed from any of the players: AuthoringAgent, 
+  DC_Clusters, nor Subscibers.
+
+  When the Agent's DC_Cluster sends the DELTA to ALL other DC_Clusters it then 
+  waits on ACKs from these DC_Clusters.
+
+  Once the Agent's DC_Cluster has received DELTA_ACKs from ALL other 
+  DC_Clusters it issues a GeoCommitDelta to ALL DC_Clusters (including itself).
+
+  When a DC_Cluster receives a GeoCommitDelta, it sends a CommitDelta to ALL 
+  locally connected Subscribers (including the AuthoringAgent) of this DELTA's 
+  channels.
+
+  When a Subscriber receives a CommitDelta, it removes the DELTA. This is the 
+  end of the lifetime a DELTA (on a device) and the entire flow insures a DELTA 
+  is only removed when numerous dependencies (e.g. ACKs from ALL DCs) 
+  succesfully complete.
+
+  Various failure events (DC_Cluster-failures, ClusterNode-failures, 
+  DB-failures) can result in the Agent's DC_Cluster NOT receiving ACKs from ALL 
+  other DC_Clusters. Any one of these failures will result in no GeoCommitDelta 
+  being sent and the DELTA will remain on every player it has been sent to.
+
+  DC_Clusters and ALL Subscribers have heartbeats that check for DELTAs older 
+  than an allowed threshold.
+
+  When a DC_Cluster_Heartbeat detects a Delta older than the allowed threshold 
+  (OLD_DELTA), it retransmits the DELTA as a GeoDelta to ALL other DCs
+
+  When a Subscriber_Heartbeat detects an OLD_DELTA, it retransmits the DELTA to 
+  its DC.
+
+  Each DC_Cluster & Subscriber keeps a map of which DELTAs have previously been 
+  applied using the globally unique DELTA_ID.
+
+  Each DC_Cluster & Subscriber also insures that each DELTA they receive (and 
+  subsequently process) from a given AgentUUID is sequentially IN-ORDER before 
+  applying the DELTA.
+
+  DELTAs from other Agents MUST be applied IN-ORDER to be correct. An 
+  out-of-order or repeat-delta with respect to AgentUUID will NOT be applied at 
+  DC nor Subscriber.
+
+  These simple mechanisms suffice to yield the apply-ONLY-once SEC requires.
+
+  Datanet requires Deltas from a given Agent to be applied sequentially 
+  IN-ORDER, but allows for an arbitrary order of application with respect to 
+  Deltas ACROSS Agents (e.g. Deltas from Agent1 must be applied in order: 
+  [A1-1, A1-2, A1-3] but Deltas across Agents 1 & 2 can be applied in any 
+  order: both [A1-1, A2-1, A2-2, A1-2, A1-3, A2-3] and
+              [A2-1, A2-2, A2-3, A1-1, A1-2, A1-3] are acceptable).
+
+  Viral Commutative Technology takes the extreme step of retransmitting any 
+  DELTA (which has not been globally ACKed) once it has crossed the OLD 
+  threshold. This insures that once a DC_Cluster or Subscriber has received a 
+  DELTA, it will attempt to have the DELTA applied globally forever. This also 
+  means once a DC_Cluster or Subscriber has applied a DELTA it can consider the 
+  DELTA as live, because the DELTA will eventually be applied globally and is 
+  already locally visible.
+
+  This is how VCR acheives global low latency replication, by allowing deltas 
+  to be live before they have been ACKed. In VCR a DELTA is live after the 
+  first phase of its two-phase-commit.
+
+
+-------------------------------------------------------------------------------
+ Out-Of-Sync Documents
+-------------------------------------------------------------------------------
+
+  Documents can become out-of-sync in several scenarios. Datanet has 
+  methods to reset an out-of-sync Document without losing data. These 
+  document-resets are more expensive than normal Deltas, but represent a smart 
+  tradeoff as they cover a myriad of out-of-sync conditions and this approach 
+  avoids storing the large volume of Deltas that are not immediately applied at 
+  all of their intended Subscribers (and hence would be required to fix 
+  out-of-sync Documents).
+
+  Documents become out-of-sync when an Agent goes offline for a period of time.
+  When an Agent comes back online, any given Document may have missed an
+  aribitrary number of Deltas.
+
+  AgentOnline calls responses notify the Agent which keys are out-of-sync
+  (ToSyncKeys). The Agent calls NeedMerges (to its connected DC) for each
+  ToSyncKey which is responded to with a SubscriberMerge.
+
+  SubscriberMerges contain the FULL state of a Document, which includes:
+  CRDT, AgentVersions, GC-Versions, & Ether (explained below in 
+  'Expanded Architecture' section 24: 'ETHER'). The full state of the document 
+  is then persisted at the Agent and normal Delta-based-replication can resume.
+
+  Another out-of-sync document scenario happens when a ClusterNode dies. For
+  a brief period, the dead ClusterNode's cluster has yet to detect the node is
+  dead, and Deltas are being sent to a dead node, resulting in missed Deltas.
+  Missed Deltas cause the document at this cluster to be out-of-sync. When this
+  cluster re-organizes (to adjust to the dead node), the newly elected
+  KeyMaster for this document will receive deltas that are out-of-order.
+  Out-of-order Deltas are acked with OOO-Acks and the receiving ClusterNode
+  will then drain all un-acked Deltas to the sender of the OOO-Ack. This drain
+  will effectively update the out-of-sync document.
+
+
+-------------------------------------------------------------------------------
+ GeoDistributed GarbageCollection
+-------------------------------------------------------------------------------
+
+  Datanet's CRDT Arrays do not delete array-members directly, instead the 
+  operation of deleting an array-member generates a tombstone. These tombstones 
+  are necessary to be able to merge in concurrrent operations that reference 
+  (via LeftHandNeighbor relations) deleted array-members. Periodic 
+  GarbageCollection removes these tombstones, preventing the Document from 
+  (over time) growing unbounded in size.
+
+  GarbageCollection is triggered when the number of tombstones in a Document 
+  exceeds a threshold. GarbageCollection is accomplished via a specialized 
+  Delta generated by the PrimaryDataCenter (elected during GeoClusterVote).
+
+  GC-Deltas are generated SOLELY by the PrimaryDataCenter to avoid duplicate 
+  GC-Deltas. During GeoCluster-ReOrgs when the PrimaryDataCenter is down no 
+  GC-Deltas will be sent until a new PrimaryDataCenter has been elected (via a
+  GeoClusterVote). This means GC will be delayed system-wide during a
+  GeoClusterReOrg, but will resume immediately after GeoClusterReOrg has
+  completed
+
+  A GC-Delta is authored by the PrimaryDataCenter and after creation is sent 
+  throughout Datanet as a normal Delta. A GC-Delta contains no data, 
+  rather it contains metadata about which tombstones should be archived and
+  which neighboring array elements should have their LeftHandNeighbors 
+  reordered to fill the hole created by the garbage-collected element. The
+  metadata in a GC-Delta consists of:
+    [tombstone_summaries, lhn_reorders, undo_lhn_reorders].
+
+  Each GC-Delta contains a GC-Summary. GC-Summaries contain state such that
+  they can be applied in both directions, they can both increase or decrease
+  a document's GC-Version. Increasing GC-Versions is done during normal GC,
+  decreasing GC-Version is done in corner cases involving out-of-sync Documents.
+
+  When a DC receives a GC-Delta it will archive all tombstones in the
+  tombstone_summary[] (removing the tombstones from the CRDT), reorder any
+  element's LeftHandNeighbor in the lhn_reorders[], and then save all three 
+  members of the GC-Delta's metadata to the DB as a GC-Summary.
+
+  Tombstone_summaries[] describe which tombstones are to be permanently deleted.
+  ONLY these tombstones will be deleted on GC-Delta application. Causal ordering
+  of Deltas insured that GC-Deltas are applied AFTER all their dependencies
+  are met, so there can not be tombstone-misses.
+
+  Lhn_reorders[] describe the reordering of LeftHandNeighbors that happens when
+  the tombstones in tombstone_summaries[] are permanently removed from the CRDT.
+  Algorithms (explained in document: DistributedGC.txt) determine how
+  LeftHandNeighbors should be reordered.
+
+  Undo_lhn_reorders[] store the BEFORE state of an LHN_reordering &
+  are used to reverse (undo) an LHN_reordering. This undo decreases
+  the GC-Version.
+
+  When any Datanet player (including the PrimaryDataCenter) applies a GC-Delta
+  it increments its LocalCRDT's GarbageCollectionVersion (GCV).
+  
+  Deltas applied to Documents' with differing GCVs need to be 'freshened' 
+  before application, to insure LeftHandNeighbor consistency within the CRDT.
+
+  Freshening a Delta is done by using the GCV-Summaries spanning the 
+  Delta's (lower) GCV to the Document's (higher) GCV to recreate the state
+  spanning the Delta's state to the Document's state. When a ClusterNode
+  receives an AgentDelta with a lower GCV, it will merge ALL GCV-Summaries
+  and use the aggregate tombstone_summaries[] & undo_lhn_reorders[] to build
+  a logical bridge between the Delta and the Document. This logical bridge is
+  used to create a new Delta called a ReorderDelta with the Document's current
+  GCV, which is added to the original Delta and can be applied at the
+  current GCV.
+
+  GCV-Summaries build up over time and must be periodically reaped (permanently
+  deleted), to keep the DB lean. This brings up the case where a Delta GCV is
+  older than the earliest saved GCV-Summary. This scenario is refered to as a
+  StaleDelta. StaleDeltas are detected during AgentDelta reception.
+
+  Stale AgentDeltas are ignored system-wide. A ReorderDelta w/ metadata 
+  DO_IGNORE is sent and all DC_ClusterNodes and Subscribers will ignore the 
+  original Delta. Additionally a SubscriberMerge is sent to the Agent authoring
+  the StaleDelta enabling the Agent to also ignore the StaleDelta.
+
+  * The requirement of GarbageCollection was a key factor in deciding the 
+  Datanet's Architecture. GarbageCollection is extremely hard to efficiently 
+  implement in a pure P2P architecture, so Datanet leaned more towards a 
+  Centralized Architecture featuring DC_Clusters with attached Subscribers. 
+  This Centralized Architecture is also a very good fit for the Internet, which 
+  is mostly heirarchical (i.e. DSL & LTE at the bottom, Backbones at the top).
+
+
+-------------------------------------------------------------------------------
+ Advanced DataStructure Deltas
+-------------------------------------------------------------------------------
+
+  The list of current Advanced DataStructures that Datanet supports is 
+  CAPPED-LIST, ORDERED-LIST, & LARGE-LIST. 
+
+  ORDERED-LISTs and LARGE-LISTs require re-sorting upon modification,
+  which is carried out by every player independently, neither coordination nor
+  shared-state is required (i.e. the rules are enforced functionally) for
+  this step..
+
+  LARGE-LISTs generate SplitDeltas which remove data from the original document
+  and place this data in an external but logically linked document. LARGE-LISTs
+  consist of many documents logically linked (they are still experimental).
+
+  CAPPED-LISTs require periodic trimming which is accomplished by an extra 
+  DataCenter generated Delta (named DS_DELTA).
+
+  CAPPED-LISTs are arrays with arguments: MAX-SIZE & TRIM. When the array has 
+  more than MAX-SIZE elements in it, it will be trimmed to contain 
+  (MAX-SIZE minus TRIM) elements. This trimming is accomplished by a DS_DELTA.
+
+  DS_DELTAs are similar to GC_DELTAs in that they are generated by the
+  PrimaryDataCenter (not Agents).
+
+  The DS_DELTA is authored by the PrimaryDataCenter and after creation is sent 
+  throughout Datanet as a normal Delta. The DS_DELTA contains operations
+  to enforce the Advanced DataStructure's rules (e.g. trim X array-elements).
+
+
+-------------------------------------------------------------------------------
+ Expanded Architecture
+-------------------------------------------------------------------------------
+
+  1.) Cluster Formation
+        A.) Raft Voting
+          a.) The RAFT protocol is used to form consensus of the ClusterState
+          b.) All ClusterNodes active within the last Z seconds are included
+              in a ClusterVote
+          c.) when ALL ClusterNodes agree to a ClusterVote (identified by
+              cluster_node.device_uuid & term_number) a ClusterCommit is
+              broadcast
+          d.) on ClusterCommit each ClusterNode uses the new cluster_nodes[] to
+              recompute its PartitionTable (maps Key to KeyMaster-ClusterNode)
+        B.) ClusterHeartbeat & ClusterLeader
+          a.) each ClusterNode writes a ClusterHeartbeat entry to the DB every
+              X seconds
+          b.) the ClusterLeader analyzes the ClusterState every Y (>X) seconds
+              and if a new node or a stale node is detected, a ClusterVote
+              is started
+        C.) Fully connected ClusterMesh
+          a.) each ClusterNode has a TLS connection to EVERY other ClusterNode
+        D.) Elasticity - AddNode
+          a.) a NewNode will write its ClusterHeartbeat to the DB and will be
+              included in a subsequent ClusterVote (after a warmup period)
+        E.) Elasticity - RemoveNode
+          a.) Any node in the Cluster that fails to write a ClusterHeartbeat to
+              the DB within W seconds is considered stale and will be voted
+              OUT of the Cluster in a subsequent ClusterVote
+        F.) Network Partitions
+          a.) Network Partitions are defined as a ClusterVote containing 
+              2+ LESS ClusterNodes than the previous ClusterVote
+          b.) A cluster in NetworkPartitionMode forwards ALL requests to
+              another DataCenter (it becomes a proxy until the NP heals)
+  2.) Geo-Cluster Formation
+        A.) Discovery
+          a.) Each ClusterNode's config file contains a Discovery URL. The 
+              DiscoveryURL uses DNS to point to an active Datanet DC and can be
+              queried to ascertain the current state of the Datanet's
+              GeoCluster. A new DC uses this state to contact existing DCs,
+              triggering the GeoClusterVoting process
+        B.) Raft Voting
+          a.) The RAFT protocol is used to form consensus of the
+              GeoClusterState
+          b.) All active DCs within the last V seconds are included in the
+              GeoClusterVote
+          c.) when ALL participating DCs' GeoLeaders agree to a GeoClusterVote
+              (identified by geo_leader_node.device_uuid & term_number)
+              a GeoClusterCommit is broadcast
+          d.) on GeoClusterCommit each geo_leader persists the new
+              geo_cluster_nodes[] and informs all connected Subscribers of the
+              new geo_cluster_nodes[] (Subscribers use this info during
+              DC-failovers)
+        C.) GeoClusterHeartbeat & GeoLeader
+          a.) During CLUSTER-voting, each Cluster elects a (geo)leader
+          b.) Each DC's GeoLeader connects to ALL other DCs' GeoLeaders forming
+              a fully connected GeoLeaderMesh
+          c.) All GeoLeaders regularly ping ALL other GeoLeaders, this is known
+              as the GeoClusterHeartbeat
+          d.) The GeoClusterHeartbeat acts to informs each cluster of new
+              and stale DCs
+        D.) GeoLeader Mesh
+          a.) Connections between DataCenters are done between GeoLeaders. 
+          b.) GeoClusterVoting is performed solely by each DC's GeoLeader
+        E.) Elasticity - AddDataCenter
+          a.) after a new DC has learned the GeoCluster's state from querying
+              the DiscoveryURL, this new DC will create connections to ALL
+              active DCs in the Datanet, and after a warmup period, a 
+              GeoClusterVote will include this DC in the Datanet. After the
+              GeoClusterCommit, this DC still needs to be synced via
+              a DataCenterOnline call to become live.
+        F.) Elasticity - RemoveDataCenter
+          a.) the method RemoveDataCenter permanently removes a DataCenter from
+              the Datanet. Until RemoveDataCenter is called the Datanet will
+              keep trying to reconnect to an unreachable DC under the assumption
+              that the DC's unreachability state is temporary.
+        G.) Connection to Remote DataCenter as Agent
+          a.) every ClusterNode in every DataCenter has a dedicated single
+              connection to every other DataCenter.
+          b.) each ClusterNode chooses an AgentMaster at a remote DataCenter
+              and is treated similarly to an Agent by that DataCenter's
+              ClusterNode.
+  3.) SyncedState (for both DC & Device)
+        A.) StationedUsers
+          a.) list of which users are stationed on which devices
+        B.) UserPermissions
+          a.) list of which users have permissions (R/W) on which channels
+        C.) UserSubscriptions
+          a.) list of which users have subscriptions to which channels
+        D.) CachedKeys
+          a.) list of this device's (or DC's) cached keys
+          b.) cached-keys are defineds as per-user lists of cached-keys
+          c.) On Device-Sync/DC-Sync cached-keys are added to the device's
+              or DC's ToSyncKeys
+        E.) PubSubKeys
+          a.) list of this device's (or DC's) pub-sub-key subscriptions
+          b.) pub-sub-key subscriptions are ALL keys in ALL channels to
+              which a user is subscribed
+          c.) On Device-Sync/DC-Sync pub-sub-keys are added to the device's
+              or DC's ToSyncKeys
+        F.) GeoNodes
+          a.) list of the Datanet's active DataCenters
+        G.) Users (only for DCs)
+          a.) list of Datanet Usernames/Passwords
+  4.) Offline Agent/Subscriber Sync
+        A.) AgentOnline() call
+          a.) called on DeviceInitialization -> response contains globally
+              unique Central-generated AgentUUID
+          b.) called when Device comes back online
+          c.) response contains SyncedState (ref: section #3) changes since
+              the device has been offline (timespan computed from
+              'created' timestamp {ref: section #15: 'CommitLog'})
+        B.) Agent-ToSyncKeys
+          a.) AgentOnline response contains CachedKeys & PubSubKeys
+          b.) CachedKeys & PubSubKeys are stored as Agent-ToSyncKeys
+          c.) ToSyncKeys issue NeedMerge() requests to Central until a
+              SubscriberMerge() response is received
+        C.) SubscriberMerge() response
+          a.) contain the total state for a given key
+          b.) state includes: [CRDT, AgentVersions, GC-Summaries, Ether]
+  5.) DC-to-DC Offline Sync
+        A.) DataCenterOnline() call
+          a.) called when DataCenter is initially brought up -> populates DC
+          b.) response contains SyncedState (ref: section #3) changes since the
+              DC has been offline (timespan computed from 'created' timestamp
+              {ref: section #15: 'CommitLog'})
+        B.) Cluster-ToSyncKeys
+          a.) DataCenterOnline response contains CachedKeys & PubSubKeys
+          b.) CachedKeys & PubSubKeys are stored as Central-ToSyncKeys
+          c.) FrozenKeys: ToSyncKeys are frozen until they are synced, frozen
+              means they can not yet be propogated to Subscribers or other DCs
+          d.) ToSyncKeys issue GeoNeedMerge() calls to other DataCenters until
+              a DataCenterMerge() response, which contain a Document's state,
+              is received
+          e.) A successful DataCenterMerge() call unfreezes the key, and the
+              key will now be returned to Agents upon NeedMerge() calls
+        C.) DataCenterMerge() call
+          a.) contain the total state for a given key
+          b.) state includes: [CRDT, AgentVersions, Ether]
+  6.) Garbage Collection
+        A.) Need for Garbage Collection
+          a.) CRDT Arrays generate tombstones when array elements are deleted.
+              Tombstones must be GCed in order to not grow unbounded in size.
+        B.) Only PrimaryDataCenter performs GC
+          a.) when a Document's number of tombstones reaches a threshold, the
+              PrimaryDataCenter will generate a GC-Delta to GC the Document.
+              It is important that only ONE DC (at any given time) generates
+              GC-Deltas, to avoid repetitive GC-Deltas.
+        C.) GC-Delta
+          a.) GC-Deltas are automatically generated by the PrimaryDataCenter
+              (not by an Agent)
+          b.) GC-Deltas contain no data, instead they contain metadata to
+              perform GarbageCollection upon application
+          c.) GC-Delta metadata contains:
+              [tombstone_summaries, lhn_reorders, undo_lhn_reorders]
+          d.) tombstone_summaries[] describe which tombstones should be archived
+          e.) lhn_reorders[] describe which elements need their LHNs reordered
+          f.) undo_lhn_reorders[] describe the state before lhn_reorders[] are
+              applied
+        D.) GarbageCollectionVersionSummary
+          a.) GC-Delta metadata is saved as a GC-Summary
+          b.) GC-Summaries can be combined to recreate state spanning CRDTs
+              and Deltas of different GarbageCollectionVersions
+          c.) ClusterNodes use this state to FreshenDeltas with GCVs lower
+              than the current CRDT
+          d.) GC-Summaries are periodically reaped
+          e.) AgentDeltas with GCVs lower than the lowest Central GC-Summary are
+              StaleDeltas
+          f.) StaleDeltas are ignored Datanet-wide
+        E.) FreshenDelta
+          a.) AgentDeltas with GCVs less than the ClusterNode's CRDT need to be
+              freshened. This is possible if the CluserNode contains
+              GC-Summaries for all GCVs between the Delta & CRDT's GCVs. If
+              any GC-Summary is missing, the Delta will be rejected as a
+              StaleDelta
+          b.) a Delta is freshened by aggregating the GC-Summaries spanning the
+              lower Delta GCV & higher CRDT GCV to recreate the state between
+              the two. This state is used to assign consistent LHNs to the
+              Delta producing a 'freshened' Delta.
+          c.) FreshenAgentDelta
+              Rewind CRDT to RetrievedCRDT GC-Version and insert Oplog's
+              changes, then update LHN of any inserted elements to point to
+              the closest (in the left direction) non-tombstoned element in this
+              element's LHN-chain. If no element is found -> NO-OP, this element
+              will be a root element.
+        F.) Unreachable PrimaryDataCenter puts GC temporarily on hold
+          a.) since the Datanet functions even when DC's go offline (or die),
+              it is possible for the PrimaryDataCenter to go offline and the
+              Datanet must continue to function. During the timespan that
+              starts with the PrimaryDataCenter going down and a new
+              PrimaryDataCenter being elected, no GC-Deltas will be issued.
+              Since GC-Deltas perform the idempotent action of
+              GarbageCollection, this temporary no-GC-Deltas period will be
+              rectified when the new PrimaryDataCenter is elected and starts
+              generating GC-Deltas.
+        G.) AGENT-GC-WAIT
+              When a GC-Delta arrives and an Agent has local Deltas that
+              have not yet been committed (via SubscriberCommitDeltas) there
+              exists a risk that those Deltas are not summarized in the 
+              GC-Delta. For this reason, the Agent enters GC-WAIT until it has
+              received ReorderDeltas for the currently outstanding local Deltas.
+              AGENT-GC-WAIT means the Agent queues the GC-Delta without 
+              applying it and adds any metadata from ReorderDeltas (w/ matching
+              GCVs) to the GC-Delta's summary. Finally when the needed
+              ReorderDeltas have been received (augmenting the GC-Delta's
+              summary) the GC-step can be performed with the guarantee that
+              the local Deltas will be correctly positioned during the GC-Step
+        H.) GC-Anchors
+              The roots of a array may become Anchors upon GC-removal. An
+              anchor is a tombstone that is never removed as it is needed to
+              root the array. Since position in arrays is determined via LHNs
+              and removing the roots of an array can not be solved by
+              reordering LHNs, Anchors are employed. Anchors must be referenced
+              within the array, once all elements referencing the anchor are
+              removed, the anchor can also be removed (REF: DanglingAnchor.
+        I.) AnchorCompaction
+              Compacting anchors is a simple trick, that works because a
+              Post-GC CRDT has zero tombstones -> therefore immutable order
+              Sort the array and then compact S[] to 2 entries ->
+                1st entry is S[0],
+                2nd entry is the array index of the entry (switched to DESC)
+              TODO: Elaborate in plain english
+        J.) GC-WAIT-INCOMPLETE
+              On Apply GC-Reorder, elements are checked for the following 
+              condition: element's LHN is getting removed AND there is no
+              lhn_reorder[] for the element. This condition exists due to a
+              (rare) race condition where a SubscriberDelta arrives before 
+              the GC-Delta AND/OR ReorderDelta that would reorder it, which
+              if normally applied would not have the guarantee of positional
+              correctness. When this condition is detected the Agent enters
+              GC-WAIT-INCOMPLETE where the GC-Delta is not arrived until
+              the needed ReorderDelta is received
+     
+ 
+
+
+   7.) CRDT types & operations
+        A.) Types: Object, Array, Number, & String
+          a.) Observed/Modify
+              Observed/Modify means an Agent can only modify or delete an
+              [Object,Array,Number,String] it has observed it, in other words
+              if the [Object,Array,Number,String] is in its current scope. When
+              an [Object,Array,Number,String] is modified that no longer exists
+              (overwritten or deleted) the modification becomes a NO-OP when
+              it is applied.
+          b.) Object -> LastWriterWins (LWW) Register
+              Objects are Key-Value pairs. The Value can be a
+              [Object,Array,Number,String]. Datanet Objects themselves are 
+              simply containers for Key-Value pairs, so they can only be
+              set, overwritten, or deleted and are therefore Registers.
+              NOTE: A Document's root is an Object
+          c.) Number -> PN-Counter
+              Numbers are represented as Positive/Negative counters, meaning
+              there are separate monotonically growing counter for
+              increments(P) & decrements(N). Setting a number will create a
+              new version of the Number and set only P or N (depending on
+              whether the set-value is positive or negative) and a set follows
+              LWW conflict resolution.
+          d.) String -> LWW Register
+              Strings are simply registers, the only operations permitted on 
+              Strings are set & delete. Set creates a new version of the
+              String. LWW determines the winner of competing String sets.
+          e.) Array  -> LeftHandNeighbor defined position & GCed Tombstones
+              Arrays have by far the most complicated implementation. Arrays use
+              the LeftHandNeighbor relationship to define Array position. An
+              Array with the elements ['A','B','C'] would have the following
+              LeftHandNeighborMap:{'A'->null,'B'->'A','C'->'B'}. The
+              LeftHandNeighbor relationship allows concurrent inserts into
+              the middle of the array, ties are broken via timestamps. Deleting
+              array members tombstones these members, they still exist, but are
+              not displayed. Tombstones can pile up and cause Documents to grow
+              unacceptably large, so GarbageCollection of Array Tombstones is
+              required (explained in section #6: 'Garbage Collection'). The
+              LeftHandNeighbor relationship does not define a classical 
+              reverse direction linked list, but rather a hybrid
+              tree/linked-list datastructure. Concurrent adds into the middle
+              of an array will result in two elements with the same
+              LeftHandNeighbor. These two elements may also be the roots of
+              LeftHandNeighbors chains. This is where the data-structure
+              exhibits tree-like properties: the 2 elements with the same
+              LeftHandNeighbor will be sorted (to timestamp) and the final
+              array will display the first element, followed by its 
+              LeftHandNeighbor chain, followed by the second element and its 
+              LeftHandNeighbor chain. The evaluation of the tree to the final 
+              array is done by a simple left-first depth-first recursive 
+              function.
+              Given the following LeftHandNeighbor relationships:
+               [B->A,C->A,D->B,E->D,F->C]
+              the algorithm will define the element A (which has no
+              LeftHandNeighbors) as the array root and then search for element
+              with A as their LeftHandNeighbor, finding B & C, which are sorted
+              to timestamp, (e.g. resulting in order C,B). From there elements
+              with C & B will be searched for, creating their chains. The final
+              ordering of the array will be [A,C,F,B,D,E] which can be read as 
+              [A,[C,F],[B,D,E]] or [Root, Chain(C), Chain(B)]
+        B.) Operations
+          a.) set (ALL types)
+              ALL types can be set. A set will create a new version of the type.
+              Following Observed/Modify principles this means, any operations
+              to the previous version of the type are now treated as NO-OPs
+          b.) delete (ALL types)
+              ALL types can be deleted. Deletion of Objects, Object-members, or
+              Arrays will simply remove the Object, Object-member, or Array.
+              Deletion of Array-members will create a tombstone within the Array
+          c.) insert (Array only)
+              API: Insert array position value. Inserting values into a position
+              in an array is possible via the 'insert' operation.
+          d.) increment/decrement (Number only)
+              Numbers can be incremented & decremented. These operations will
+              only modify the Number's P or N counter values, respectively.
+  8.) Advanced DataTypes
+        A.) Advanced DataTypes are similar to Objects & Arrays in that they are
+            fully nestable within a Document
+        B.) OrderedList
+          a.) An OrderedList is a sorted array, each type has different cmp()
+              functions
+          a.) An OrderedList can contain any type: [Object,Array,Number,String]
+          b.) Numbers & Strings are AlphaNumerically sorted (ascending)
+          c.) Arrays are sorted first to array.length and then individual
+              array-members are compared
+          d.) Objects are first sorted to number-object-keys and then
+              individual object-members are compared
+        C.) CappedList
+          a.) A CappedList is a list with a maximum-size. CappedLists can be 
+              used as both Stacks & Queues.
+          b.) CappedList Arguments: MAX-SIZE & TRIM
+              Each CappedList has arguments MAX-SIZE & TRIM.
+              When a CappedList reaches 'MAX-SIZE', it will be trimmed by
+              'TRIM' elements. This is accomplished by a DS-Delta generated at
+              the AuthoringDataCenter.
+          c.) DS-DELTAs are not contained within the OrignalDelta's scope, so
+              it is possible (during several ClusterNode or CentralDB failure
+              scenarios) that a DS-DELTA fails to be generated immediately
+              after the OriginalDelta. In this case the CappedList will
+              temporarily be longer than MAX-SIZE, but will be trimmed once the
+              failure scenario has ended and the system can generate the needed
+              DS-DELTA.
+        D.) LargeList
+          a.) NOTE LargeLists are STILL EXPIREMENTAL (TODO Full documentation)
+  9.) User Management
+        A.) AddUser    - requires ADMIN privileges
+          a.) Add a User to the Datanet (with password and role: [USER,ADMIN])
+        B.) RemoveUser - requires ADMIN privileges
+          a.) Remove a User from the Datanet and from ALL devices where the
+              User is stationed
+        C.) GrantUser  - requires ADMIN privileges
+          a.) Grant a User priviliges (R,W) on a channel
+          b.) Users must first subscribe to a channel before they can read or
+              write Documents in that channel
+  10.) Station User on Device
+        A.) StationUser
+          a.) The StationUser stations a given User on a device. All documents
+              in channels to which this User subscribes plus All documents
+              which this User has cached will be replicated to the device
+        B.) DestationUser
+          a.) The DestationUser informs the Datanet to no longer replicate
+              this User's CachedKeys & PubSubKeys to the device
+  11.) User Subscribes to Channel
+        A.) Subscribe
+          a.) respecting channel-permissions, the Subscribe call subscribes a
+              User to All documents in a channel. All documents in said
+              channel will be replicated to All devices where this User is
+              stationed
+        B.) Unsubscribe
+          a.) the Unsubscribe calls informs the Datanet to no longer replicate
+              this channel's documents to devices where this User is stationed
+  12.) User Caches Document
+        A.) Cache
+          a.) if this User has permission on a document's channel(s) it can
+              Cache the document. A Cache call caches a single Document, 
+              whereas a subscribe call caches All documents in a channel. A
+              Cached document will be replicated to All devices where this
+              User is stationed
+        B.) Evict
+          a.) the Evict call informs the Datanet to no longer replicate this
+              document to All devices where this User is stationed
+  13.) Security: Authentication & Authorization
+        A.) User Authentication
+          a.) All Client-to-Agent calls and most Agent-to-Central calls
+              are authenticated & authorized via username/password logins
+              (defined during AddUser() calls)
+        B.) Admin Authentication
+          a.) calls requiring admin privileges (e.g. Add/Remove/GrantUser) are 
+              authenticated & authorized via username/password logins which
+              must evaluate to a user with ADMIN privileges
+        C.) Authorization of Subscriptions
+          a.) Channels require permission to be read or written to by Users.
+          b.) GrantUser() calls grant a User permission to read or write to
+              a channel (and ALL documents contained within this channel)
+        D.) Authorization of InternalCalls
+          a.) All DataNet internal calls (ClusterNode-to-{Geo}ClusterNode) are
+              authenticated & authorized via a shared (and secret)
+              ClusterMethodKey
+        E.) Authorization of ExternalCalls
+          a.) Some operations are performed automatically by the Agent and
+              require automatic and secure authentication & authorization.
+              Such operations are actually driven by the Cluster, so 
+              ClusterNode's create SecurityTokens for these operations. When
+              the Agent performs the operation it must include the
+              SecurityToken supplied by the ClusterNode and the ClusterNode
+              then checks that the SecurityTokens match.
+          c.) NeedMerge: KeySecurityToken
+              KeySecurityToken are based on the Key [name & version]
+        F.) DeviceKey
+          a.) On Agent(Device) initialization, Central assigns Agent a 
+              unique random key. Agent MUST include this DeviceKey in ALL
+              subsequent requests -> AgentUUID & DeviceKey must match
+        G.) HTTPS Callback KEY
+          a.) DatanetOpenRestyAgent uses a HTTPS Callback. Central pushes
+              subscriber calls to this port. On Agent initialization, Agent
+              sends Central a HttpsCallbackKey and Central must include this
+              HttpsCallbackKey in all pushes to DatanetOpenRestyAgent. This is
+              an added level of security for DatanetOpenRestyAgent.
+  14.) AgentMaster(s), KeyMaster(s), & SubscriberMaster(s)
+        A.) AgentMaster for Agent
+          a.) each Agent is connected to a single ClusterNode, known as this
+              Agent's AgentMaster. All I/O FROM this Agent is done TO its
+              AgentMaster
+        B.) AgentMaster for Remote-ClusterNode
+          a.) each ClusterNode is connected to a single remote ClusterNode in
+              each remote DC in the Datanet: a ClusterNode's AgentMaster
+          b.) the ClusterNode's AgentMaster treats the ClusterNode similarly to
+              an Agent: accepting GeoDeltas & GeoNeedMerges -> replying with
+              AckGeoDeltas & DataCenterMerges, accepting GeoBroadcastCache,
+              GeoBroadcastSubscribe, etc...
+        C.) KeyMaster for KeyRange
+          a.) each ClusterNode contains a PartitionTable used to divide the
+              KeySpace amongst ClusterNodes. An operation on a given key is
+              assigned a KeyMaster by hashing the key and then looking up the
+              key's ClusterNode in the PartitionTable. All read/write
+              operations (e.g. ClusterDelta, ClusterNeedMerge) are performed
+              on the KeyMaster. This acheives the Datanet's goal of per-key
+              I/O serialization.
+        D.) SubscriberMaster for Subscriber
+          a.) each Subscriber is connected to a single ClusterNode, known as
+              this Subscriber's SubscriberMaster. All I/O TO this Subscriber is
+              done FROM its SubscriberMaster.
+          b.) Subscribers are Agents acting in SubscriberMode, so a Subscriber's
+              SubscriberMaster is the same as an Agent's AgentMaster
+  15.) Central summarizing changes while Agent offline
+        A.) A reconnecting Agent informs its DC of the last change it received from the DC
+           (using the 'cluster_processed' counter contained in every Delta) and the DC
+           responds with a list of keys that were changed since this change. The DC keeps a
+           cache of which keys have been modified, if the cluster_processed the Agent sends
+           when reconnecting is not found in the cache (i.e. its been offline too long), the
+           DC informs the Agent to do a full-sync.
+  16.) Agent DataCenter-Failover
+        A.) Communicationg GeoState to Agents
+          a.) AgentOnline responses contain the state of the GeoCluster
+          b.) Whenever the GeoCluster re-orgs, ALL subscribers are alerted of
+              the new state of the GeoCluster via a SubscriberGeoStateChange()
+              call
+        B.) DC-Failover
+          a.) when an Agent determines that a DataCenter is unreachable, it
+              will automatically switch to another DC in the GeoCluster
+          b.) The Agent will issue an AgentOnline call to this DC,including
+              this DC's 'created' timestamp
+        C.) Drain unACKed AgentDeltas & SubscriberDeltas to new DC
+          a.) The Agent failing over to the new DC will drain ALL unACKed
+              Deltas it authored (as AgentDeltas) to the new DC
+          b.) The Agent failing over to the new DC will drain ALL unACKed 
+              SubscriberDeltas it received (as SyncDeltas) to the new DC
+  17.) Agent Isolation
+        A.) Agent Isolation() call
+          a.) Agents can manually isolate themselves from the Datanet, which 
+              means ZERO I/O to or fro the Datanet
+          b.) While in Isolation, an Agent is free to modify all of its
+              Documents, and these modifications will be replicated as soon
+              as the Agent reconnects to the Datanet
+        B.) Coalesce Deltas while isolated
+          a.) Deltas with coalesce-able operations will be combined into a 
+              single Delta so long as the Agent is isolated
+        C.) Central Backoff() call
+          a.) While a cluster is performing a ClusterReOrg or GeoClusterReOrg
+              the ClusterNode will issue Backoff() calls to Agent's attempting
+              to connect via AgentOnline calls. Backoff() calls instruct the 
+              Agent to isolate itself for several seconds and then reconnect to
+              the ClusterNode
+  18.) Agent-side Deltas
+        A.) AgentDelta
+          a.) Deltas authored at an Agent are always sent as AgentDeltas
+              (also when the Agent fails over to a new DataCenter)
+        B.) SubscriberDelta
+          a.) Deltas sent to an Agent that did not author the Delta are always
+              sent as SubscriberDeltas
+        C.) SyncDelta
+          a.) When an Agent fails over to a new DC, it sends any unACKed
+              SubscriberDeltas to the new DC
+  19.) Causal Ordering:
+        A.) Causal Consistency through vector clock versioning systems
+          a.) each AgentDelta contains a dependencies matrix. These dependencies are 
+              expressed as [AgentUUID,AgentVersion] tuples. For the Delta to be applied
+              at a Subscriber ALL of these dependencies must be met on the Subscriber
+          b.) Out of order queueing. Deltas can be OOO on two levels: AgentDependencies(AD)
+              and GarbageCollectionVersion (GCV). OOO Deltas are stored Agent-side but not
+              applied
+          c.) When a Subscribers' Document has entries in its OOO-queue, the OOOQ is checked
+              after successful SubscriberDelta's are applied, and if dependencies are met,
+              the OOOQ will be replayed as if the OOO-Deltas were received in correct order 
+  20.) Secure I/O
+        A.) JSON RPC 2.0
+          a.) all I/O in the Datanet, Client-to-Agent, Agent-to-ClusterNode, &
+              ClusterNode-to-(Geo)ClusterNode is done in JSON RPC 2.0
+        B.) HTTPS: Client to Agent
+          a.) Client to Agent I/O is stateless and is performed via HTTPS POST
+              calls w/ JSON RPC 2.0 bodies
+        C.) WSS: Agent to ClusterNode
+          a.) Agent to ClusterNode communication must be ordered, and WSS was
+              chosen as it is bidirectional and ordered and supported
+              by browsers and the standalone Agent (Node.js)
+        D.) TLS: ClusterNode to (Geo)ClusterNode
+          a.) Communication between ClusterNodes (local or in another DC) is
+              done via a Node.js TLS library
+  21.) Command Line Interface
+        A.) Standalone CLI
+          a.) 'node zync-cli.js' launches the standalone CLI. The CLI supports
+              ALL client commands and ALL CRDT & AdvancedDataStructure
+              operations via straightforward ASCII commands (e.g. FETCH key, 
+              SET field value, INSERT array position valu). The CLI supports
+              both interactive and batch-from-file modes.
+        B.) CLI Embedded in Browser-APPs
+          a.) Browser-apps can use the CLI's library as a complimentary API
+  22.) Agent Engine Callbacks
+        A.) Explanation: Browser-apps can register callbacks on certain Agent
+                         events
+        B.) Connection Change Event
+          a.) when the Agent goes offline, comes back offline, or changes its
+              Isolation status, a ConnectionEvent is emitted
+        C.) Data Change Event
+          a.) when an AgentDelta is sent, a SubscriberDelta or a
+              SubscriberMerge is received, a DataChangeEvent is emitted
+        D.) User Change Event
+          a.) when a new User is stationed on this device, an already stationed
+              User subscribes or unsubscribes to a channel, & when an already
+              stationed User is removed, a UserChangeEvent is emitted
+  23.) Client Data-Calls
+        A.) ClientStore
+          a.) A ClientStore call is used to create a new document or overwrite
+              an existing document
+        B.) ClientFetch
+          a.) A ClientFetch call is required to fetch a document before 
+              the Client can modify it
+        C.) ClientCommit
+          a.) A ClientCommit call modifies a previously fetched document and
+              (on success) results in the generation of an AgentDelta
+        D.) ClientPull
+          a.) A ClientPull call pulls the current document from the Client's
+              Agent and merges in the Client's uncommitted modifications
+        E.) ClientRemove
+          a.) A ClientRemove call deletes a document from the Datanet
+  24.) Ack-AgentDelta
+        A.) OK-Ack
+          a.) an OK-Ack of an AgentDelta requires no Agent side action
+        B.) RepeatDelta-Ack
+          a.) a RepeatDelta can be removed from the Agent
+        C.) NotSync-Ack
+          a.) a NotSync-Ack means the AgentDelta was on a Document that has
+              either been removed or overwritten and is no longer relevant and
+              the Delta can be deleted & the key must be resynced via an 
+              AgentNeedMerge to its ClusterNode
+        D.) OOO-Ack
+          a.) OutOfOrder Acks are a side result of GarbageCollectionVersion
+              mismatches and are NO-OPs
+  25.) ETHER
+        A.) Explanation
+          The Datanet replicates data between multiple DataCenters in parallel
+          and asynchronously. In such a flow there are Deltas that have been
+          applied at one DataCenter but are in flight to all other DataCenters.
+          Such Deltas may also have been applied at only a subset of the
+          Subscribers they are bound for. These Deltas have been locally
+          applied but have yet to be globally ACKed. These Deltas are in the
+          grey-zone of the Datanet, named the ETHER. These Deltas have been
+          locally applied (e.g. at a DataCenter or on a Subscriber) but have
+          not been globally ACKed.  These Deltas make up a part of the local
+          Document and must be included in SubscriberMerge and DataCenterMerge
+          calls to fully describe the Document's current state (needed in the
+          even of a DC-Failover)
+        B.) DataCenterMerge & Ether
+          a.) When a DC receives a DataCenterMerge, it Acks the Deltas
+              contained in the Ether as AckGeoDeltas. This is needed for the
+              Deltas in this Document's Ether to eventually be globally ACKed.
+        C.) SubscriberMerge & Ether
+          a.) When a Subscriber receives a SubscriberMerge, it saves the Deltas
+              in the Ether as SubscriberDeltas. If this Agent fails over to 
+              another DC, it will resends these SubscriberDeltas
+  26.) DirtyKeys, DirtyDeltas, ToSyncKey, & GC-SummaryReaper Daemons
+        A.) AgentDirtyKeys
+          a.) Documents modified WHILE an Agent is Isolated or offline are
+              stored as AgentDirtyKeys and are drained as soon as the Agent
+              reconnects to a DC
+        B.) AgentDirtyDeltaHeartbeat
+          a.) Deltas stored on an Agent that are older than a threshold, will
+              be resent to its DC as they have not yet been globally ACKed
+          b.) When a device comes back online, AgentDirtyDeltaHeartbeat does
+              not start until AgentDirtyKeys is finished draining AgentDeltas
+        C.) AgentToSyncKeys
+          a.) When an Agent comes online, it receives ToSyncKeys in its
+              AgentOnline response. Each ToSyncKey results in a NeedMerge call
+              from the Agent to its DC, the response is a SubscriberMerge
+        D.) CentralDirtyDeltaHeartbeat
+          a.) Deltas stored in a Cluster that are older than a threshold, will
+              be rebroadcast to all other DCs as they have not yet been ACKed
+        E.) CentralToSyncKeys
+          a.) When a DC comes online, it receives ToSyncKeys in its
+              DataCenterOnline response. Each ToSyncKey results in a
+              GeoNeedMerge call from the DC to another DC, the response is
+              a DataCenterMerge
+        F.) GC-SummaryReapers
+          a.) Central GC-SummaryReaper runs periodically (e.g. every 5-10
+              minutes) and permanently deletes GC-Summaries from each Cluster
+              independently.
+          b.) Agent GC-SummaryReaper runs periodically (e.g. every 1-2
+              minutes) and permanently deletes GC-Summaries from each Agent
+              independently.
+          c.) GC-Summaries are currently reaped due to the following per-key
+              criterion: MaxNumTombstones, MaxGC-Summaries, MaxAge
+          d.) The criterion for GC-SummaryReaping will be added to and continue
+              to evolve.
+  27.) Internals
+        A.) FixLog
+          a.) Explanation: since the Datanet is implemented as middleware,
+              an operation can fail mid-operation if the underlying database
+              fails. For this reason, the Datanet has a per-key Fixlog that
+              either rolls an operation back or retries the operation (until it
+              succeeds) in the event of an underlying DB failure. This insures
+              the state of the underlying DB is consistent.
+          b.) Rollback: AgentDelta
+              An AgentDelta that experiences an underlying DB failure during
+              application will Rollback and alert the Client of the error
+          c.) Retry: ClusterDelta, AckGeoDelta, AckAgentDelta, AckGeoDentries,
+                     SubscriberDelta, (Geo)CommitSubscriberDelta,
+                     SubscriberMerge, DataCenterMerge
+              The operations that get retried are operations outside of the
+              scope of the Client. There is no possibility to inform the Client
+              of an error, so the operations are retried until successful
+        B.) Queues
+          a.) The Datanet is implemented as middleware. As such, single
+              Datanet-operations usually evaluate to multiple DB-operations and
+              serialization is required to provide atomicity for
+              Datanet-operations.
+          b.) Agent Key-Serialization
+              Read/Write operations on Agent-keys require I/O serialization
+          c.) Central Key-Serialization
+              Read/Write operations on Central-keys require I/O serialization
+          d.) Central Subscriber-Serialization
+              Publish operations on Central-keys require I/O serialization
+  28.) Database plugins
+        A.) Explanation: the Datanet supports multiple DBs via a plugin layer
+            The underlying DB can be chosen by a developer based on his DB 
+            preferences and which query operations the DB should support.
+        B.) Abstract Calls
+          a.) all DB calls are abstracted to calls such as (db_get, db_set, ...)
+          b.) in total there are about 20 such calls, all of which can be
+              performed by any KeyValue datastore with secondary indexes
+          c.) to support a new DB, all abstract calls must be implemented for
+              the new DB
+        C.) Startup/Shutdown functions
+          a.) the 'Memory' database plugin must load & persist its state on
+              startup & shutdown and has hooks to load & dump the DB,
+              respectively
+        D.) Multi-tenancy
+          a.) multiple DCs' and Agents' DBs can be tenant on the same machine,
+              using the same DB. This is very useful for testing purposes.
+        E.) Current Supported Engines
+          a.) MongoDB, Redis, Memory        - for DataCenters & JSAgents
+          b.) LocalStorage                  - for Browsers
+          c.) LMDB, ngx.shared.DICT, SQLITE - for OpenRestyAgents
+
+

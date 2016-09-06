@@ -1,0 +1,31 @@
+
+
+TODO: CHAOS
+  ChaosMode 33 delays sending subscriber-deltas for 10 seconds -> useful for testing delayed auto-deltas in a single agent setup
+
+  ChaosMode 35 tests OOODEP on SubscriberDeltas (need 3 subscribers, 3 is passive, 1 writes an SD, 2 writes a causally dependent {on 1's SD} SD, 3 will apply SD2 then SD1, SD2 will be OOODEP, SD1 will work and then apply SD2 as OOO) -> side effect ignore CommitDeltas (they would remove SD1)
+
+
+
+LEGACY: TODO:
+  TODO: engine_network.cpp network_send_internal()
+          called from process_central_response() plus
+          used for InternalPurgeGCVSummaries/DirtyDeltaDrain
+          Receiving worker expects fully formed JSON-RPC -> need a queue
+
+
+
+DONE: (PARITIZED)
+  1.) merge.cpp
+  2.) gc.cpp
+  3.) gc_reaper.cpp
+  4.) activesync.cpp
+  5.) agent_daemon.cpp
+  6.) ooo_replay.cpp
+  7.) isolated.cpp
+  8.) dack.cpp
+  9.) apply_delta.cpp
+  A.) subscriber_delta.cpp
+  B.) subscriber_merge.cpp
+  C.) deltas.cpp
+

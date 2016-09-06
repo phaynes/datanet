@@ -1,0 +1,107 @@
+
+  A.) Local data modification flow:
+       1.)  Nginx worker sends request to Datanet-Lua
+       2.)  Datanet-Lua sends request to KeyRouter
+       3.)  KeyRouter sends request via IPC to Datanet-CPP (Process2)
+       4.)  Datanet-CPP stores modifcation (and metadata in Storage)
+       5A.) Datanet-CPP sends response back to Datanet-Lua
+       5B.) Datanet-CPP sends modification to NetworkWorker
+       6.)  NetworkWorker sends modification to Central
+
+   +-------------------------+---------------------+---------------+
+   |       Process1          |      Process2       |   Network     |
+   |-------------------------|---------------------|---------------|
+   |                         |                     |               |
+   |  +-------------------+  |                     |               |
+   |  | Data Modification |  |                     |               |
+   |  +-------------------+  |                     |               |
+   |           |             |                     |               |
+   |           |             |                     |               |
+   |        +-----+   1      |    +-----+          |               |
+   |        | NGX |--->--+   |    | NGX |          |               |
+   |        +-----+      |   |    +-----+          |               |
+   |                     |   |                     |               |
+   |                     |   |                     |               |
+   |    5A   +-------+   |   |    +-------+        |               |
+   |  +----->|       |   |   |    |       |        |               |
+   |  |      |       |   |   |    |       |        |               |
+   |  |      | D-Lua |   |   |    | D-Lua |        |               |
+   |  |  +-<-|       |<--+   |    |       |        |               |
+   |  |  |   |       |       |    |       |        |               |
+   |  |  |   +-------+       |    +-------+        |               |
+   |  |  |2                  |                     |               |
+   |  |  |                   |                     |               |
+   |  |  |   +------------+  |    +------------+   |               |
+   |  |  +-->| Key Router |  |    | Key Router |   |               |
+   |  |      +------------+  |    +------------+   |               |
+   |  |             |        |                     |               |
+   |  |             |        |                     |               |
+   |  |             |        |   +-------+         |               |
+   |  |             +->--->----->| D-CPP |-->--+   |               |
+   |  |                  3   |   +-------+     |   |               |
+   |  |                      |                 |4  |               |
+   |  |                      |                 |   |               |
+   |  |                      |   +---------+   |   |               |
+   |  |                      |   | Storage |<--+   |               |
+   |  |                      |   +---------+   |   |               |
+   |  |                      |                 |   |               |
+   |  |                      |                 |   |               |
+   |  |                      |                 |   |  +---------+  |
+   |  +---<------------<---------------<-------+----->| Network |  |
+   |     5A                  |           5A       5B  |  Client |  |
+   |                         |                     |  +---------+  |
+   |                         |                             |       |
+   |                         |                     |       |       |
+   |                         |                     |       +-->------->
+   |                         |                     |          6    |  CENTRAL
+   |                         |                     |               |
+   +-------------------------+---------------------+--------------+
+
+
+
+
+  B.) Remote data modification flow:
+       1.) Central sends data modification to NetworkWorker
+       2.) NetworkWorker sends request to Key Router
+       3.) Key Router sends request via IPC to Datanet-CPP (Process1)
+       4.) Datanet-CPP stores modifcation (and metadata in Storage)
+       5.) Datanet-CPP sends event to Datanet-Lua
+
+   +-------------------------+----------------+----------------+
+   |       Process1          |    Process2    |   Network      |
+   |-------------------------|----------------|----------------|
+   |                         |                |                |
+   |                         |                |  +---------+   |  CENTRAL
+   |        +-------+        |                |  | Network |<---------
+   |   +--->| D-Lua |        |                |  | Server  |   |  1
+   |   |    +-------+        |                |  +---------+   |
+   |   |                     |                |       |        |
+   |   |                     |                |       |2       |
+   |   |                     |                |       |        |
+   |   |     +------------+  | +------------+ | +------------+ |
+   |   |     | Key Router |  | | Key Router | | | Key Router | |
+   |   |     +------------+  | +------------+ | +------------+ |
+   |   |                     |                |       |        |
+   |   |         +------<-----------<------------<----+        |
+   |  5|         |  3        |                |    3           |
+   |   |         |           |                |                |
+   |   |    +-------+        | +-------+      |                |
+   |   |    | D-CPP |-->-+   | | D-CPP |      |                |
+   |   |    +-------+    |   | +-------+      |                |
+   |   |                 |   |                |                |
+   |   |                4|   |                |                |
+   |   |                 |   |                |                |
+   |   |    +---------+  |   | +---------+    |                |
+   |   |    | Storage |<-+   | | Storage |    |                |
+   |   |    +---------+  |   | +---------+    |                |
+   |   |                 |   |                |                |
+   |   |                5|   |                |                |
+   |   |                 |   |                |                |
+   |   +-<-------------<-+   |                |                |
+   |                         |                |                |
+   |                         |                |                |
+   +-------------------------+----------------+----------------+
+
+
+
+

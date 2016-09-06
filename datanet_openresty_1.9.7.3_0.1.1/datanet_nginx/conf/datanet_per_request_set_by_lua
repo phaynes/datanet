@@ -1,0 +1,2 @@
+  Datanet:reset_authentication();
+  return uuid4.getUUID();

@@ -1,0 +1,45 @@
+
+CONFIGURATION:
+
+SIMPLE CONFIG:
+  The simplest configuration setup for Datanet's Central component is found in ~/node_modules/zync/conf/both_DC1-1.cfg
+
+  The file both_DC1-1.cfg is a single configuration file for the entire Central component
+
+  The file is a JSON object with the following syntax:
+    {
+      "role" : "BOTH",               // ROLE: BOTH STORAGE & ROUTER
+      "uuid" : 1901,                 // UNIQUE CENTRAL SERVER UUID
+      "datacenter" : {
+        "name" : "D1"                // UNIQUE DATACENTER NAME
+      },
+      "wss" : {
+        "server" : {
+          "hostname" : "127.0.0.1", // WSS SERVER HOSTNAME (INCOMING)
+          "ip"       : "0.0.0.0",   // WSS SERVER LISTEN-IP (INCOMING)
+          "port"     : 10101        // WSS SERVER PORT (INCOMING)
+        }
+      },
+      "backend" : {
+        "server" : {
+          "hostname" : "localhost", // BACKEND HOSTNAME (INTERNAL)
+          "ip"       : "0.0.0.0",   // BACKEND LISTEN-IP (INTERNAL)
+          "port"     : 20101        // BACKEND SERVER PORT (INTERNAL)
+        }
+      },
+      "database" : {
+        "name" : "REDIS",           // CENTRAL DATABASE NAME [REDIS,MONGO,MEMORY]
+          "ip"   : "127.0.0.1",       // CENTRAL DATABASE IP
+        "port" : 6000               // CENTRAL DATABASE PORT
+      }
+    }
+
+
+  Each Central server requires a unique UUID and NAME
+  This Central server is serving incoming (from Datanet Agents) on wss://127.0.0.1:10101
+  This Central server communicates to other Central servers in its cluster via ip:port localhost:20101
+  This Central server persists data in a REDIS database at ip:port 127.0.0.1:6000
+
+
+ROUTER STORAGE CONFIG
+  TODO
