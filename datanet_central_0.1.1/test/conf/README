@@ -1,0 +1,6 @@
+
+HOWTO:
+
+node ztester.js test/conf/initialize_unit_tests.cfg
+node ztester.js test/conf/initialize_test_documents.cfg
+node ztester.js test/conf/run_unit_tests.cfg
