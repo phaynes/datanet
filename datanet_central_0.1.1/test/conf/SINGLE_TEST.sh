@@ -1,8 +1,8 @@
 #!/bin/bash
 
-B=$(basename $PWD)
+B=$(basename $PWD | cut -f -2 -d _)
 
-if [ "$B" != "zync" ]; then
+if [ "$B" != "zync" -a "$B" != "datanet_central" ]; then
   echo "ERROR: run from repository's root directory (e.g. ../../zync"
   exit 1;
 fi
