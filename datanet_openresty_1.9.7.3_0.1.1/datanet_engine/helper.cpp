@@ -526,8 +526,13 @@ void zh_set_new_crdt(jv *pc, jv *md, jv *jncrdt, bool do_gcv) {
   UInt64  gcv = zjd(jncrdt) ? (*jncrdt)["_meta"]["GC_version"].asUInt64() : 0;
   if (do_gcv) LD("ZH.SetNewCrdt: K: " << kqk << " MD.GCV: " << gcv);
   else        LD("ZH.SetNewCrdt: K: " << kqk);
-  (*pc)["ncrdt"] = *jncrdt; // NEW CRDT RESULT
-  (*md)["ocrdt"] = *jncrdt; // OLD CRDT -> NEXT APPLY-DELTA
+  if (zjd(jncrdt)) {
+    (*pc)["ncrdt"] = *jncrdt; // NEW CRDT RESULT
+    (*md)["ocrdt"] = *jncrdt; // OLD CRDT -> NEXT APPLY-DELTA
+  } else {
+    pc->removeMember("ncrdt");
+    md->removeMember("ocrdt");
+  }
   if (do_gcv) (*md)["gcv"] = gcv;
 }
 

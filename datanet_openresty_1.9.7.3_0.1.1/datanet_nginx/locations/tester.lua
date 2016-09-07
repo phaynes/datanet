@@ -479,6 +479,7 @@ end
 local sip   = ngx.var.server_addr;
 -- NOTE: HTTP/S CONFIG DEPENDENCY (e.g. 8080->4000 or 8081->4001)
 local sport = ngx.var.server_port - 4080;
+ngx_say_flush('INFO: IP: ' .. sip .. ' P: ' .. sport);
 
 local err   = setup_tests(sip, sport);
 if (err) then return ngx_say_flush('ERROR: setup_tests: ' .. err); end
