@@ -1,0 +1,16 @@
+
+RELEASE 0.1.1 DATE: Sep 7 2016
+  1.) New test suite, run via (./datanet_central_*/)test/conf/SINGLE_TEST.sh
+         Runs concurrent tests against 2 OpenResty Agents and 1 NodeJs Agent
+  2.) Single config file for DORA (e.g. two_nginx.conf & three_nginx.conf)
+  3.) DatanetOpenRestyAgent (DORA) lua config option "delta.max_size"
+         Maximum storage to be used for Delta storage
+  4.) LOG-Levels [TRACE,NOTICE,ERROR] for DORA(Lua & C++)
+          DORA lua config file option log.level
+  5.) API Change: fetch(key, cache) calls the old API: cache(key) when "cache" is set to true
+         NOTE: Old API still works
+  6.) EXPIRE: API: expire(key, secs)
+         expires document system-wide in given seconds
+  7.) Improved handling of ClusterNode failures
+  8.) Garbage Collection improvement: GC-WAIT-INCOMPLETE
+
