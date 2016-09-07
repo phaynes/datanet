@@ -875,6 +875,7 @@ exports.StorageHandleApplyDelta = function(net, ks, dentry, rguuid, replay,
                                            hres, next) {
   ZH.l('ZRAD.StorageHandleApplyDelta: K: ' + ks.kqk);
   hres.ks = ks; // USed in response
+  ZH.CleanupExternalDentry(dentry);
   exports.FetchApplyStorageDeltaMetadata(net, ks, dentry, function(ferr, md) {
     if (ferr) next(ferr, hres);
     else {

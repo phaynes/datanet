@@ -81,16 +81,8 @@ var CentralMethodHandlerMap = {
     handle_agent_backoff,
 };
 
-function subscriber_delta_processed(err, hres) {
-  ZH.l('<<<<(C): subscriber_delta_processed');
-  if (err) {
-    var etxt = err.message ? err.message : err;
-    ZH.e('subscriber_delta_processed: ERROR: ' + etxt);
-  }
-}
-
 function handle_subscriber_delta(net, data) {
-  var next   = subscriber_delta_processed;
+  var next   = ZH.OnErrLog;
   var params = data.params;
   var ks     = params.data.ks;
   var dentry = params.data.dentry;
@@ -110,16 +102,8 @@ function handle_subscriber_dentries(net, data) {
   ZSD.HandleSubscriberDentries(net, ks, dentries, hres, next);
 }
 
-function agent_delta_error_processed(err, hres) {
-  ZH.l('<<<<(C): agent_delta_error_processe');
-  if (err) {
-    var etxt = err.message ? err.message : err;
-    ZH.e('agent_delta_error_processed: ERROR: ' + etxt);
-  }
-}
-
 function handle_agent_delta_error(net, data) {
-  var next   = agent_delta_error_processed;
+  var next   = ZH.OnErrLog;
   var params = data.params;
   var ks     = params.data.ks;
   var author = params.data.author;

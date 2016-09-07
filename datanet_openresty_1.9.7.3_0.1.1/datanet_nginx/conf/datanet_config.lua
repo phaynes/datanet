@@ -24,8 +24,8 @@ _C.config = {name    = "SERVER_1",
                ip   = "localhost",
                port = 9080
              },
-             cache  = { max_bytes       = 100000 },
-             deltas = { max_bytes       = 30000 },
+             cache  = { max_bytes       = 500000 },
+             deltas = { max_bytes       = 100000 },
              log    = { level           = "TRACE" },
              debug  = { pid_file_prefix = "/tmp/NGINX_PID"; }
             };

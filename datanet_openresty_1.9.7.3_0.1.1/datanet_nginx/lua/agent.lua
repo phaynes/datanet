@@ -6,6 +6,7 @@ local KeyPartition  = require "datanet.key_partition";
 local InternalCache = require "datanet.internal_cache";
 local WorkerDaemon  = require "datanet.daemon";
 local ClientMethod  = require "datanet.client_method";
+local Error         = require "datanet.error";
 local Debug         = require "datanet.debug";
 
 -----------------------------------------------------------------------------
@@ -166,8 +167,11 @@ local function run_agent_worker_client_method(self, jreq, jbody)
   if (err ~= nil) then return nil, err; end;
   if     (method == "ClientRemove") then
     err = Authorization:BasicAuthorize();
-  elseif (method == "ClientFetch" or method == "ClientFind") then
+  elseif (method == "ClientFetch") then
     err = Authorization:KeyReadAuthorize(kqk);
+  elseif (method == "ClientFind") then
+    err = Authorization:KeyReadAuthorize(kqk);
+    if (err == Error.ReadNoDoc) then err = nil; end -- ERROR IS OK
   elseif (method == "ClientStore") then
     err = Authorization:KeyStoreAuthorize(kqk, rchans);
   elseif (method == "InternalHeartbeat") then

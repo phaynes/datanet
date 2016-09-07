@@ -728,9 +728,8 @@ exports.FlowSubscriberDelta = function(plugin, collections, qe, next) {
 
 // NOTE: REPLAY means from DENTRIES[]
 exports.HandleSubscriberDelta = function(net, ks, dentry, replay, hres, next) {
-  hres.ks     = ks;     // Used in response
-  hres.dentry = dentry; // Used in response
   ZH.l('ZSD.HandleSubscriberDelta: ' + ZH.SummarizeDelta(ks.kqk, dentry));
+  ZH.CleanupExternalDentry(dentry);
   dentry.delta._meta.subscriber_received = ZH.GetMsTime();
   var data = {dentry : dentry, replay : replay};
   ZQ.AddToAgentKeyFlow(ZQ.AgentKeySerializationQueue, ks, 'SUBSCRIBER_DELTA',

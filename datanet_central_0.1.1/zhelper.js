@@ -648,6 +648,18 @@ exports.getFullTypeName = function(ctype) {
   else throw(new Error("ZH.getFullTypeName unrecognized type"));
 }
 
+// NOTE: LUA writes empty ARRAYs as {} -> which must be CLEANED
+exports.CleanupExternalDentry = function(dentry) {
+  var delta  = dentry.delta;
+  var fields = exports.clone(exports.DeltaFields);
+  fields.push("reorder"); // ADD 'reorder'
+  for (var i = 0; i < fields.length; i++) {
+    var f = fields[i];
+    var d = delta[f];
+    if (!d || !Array.isArray(d)) delta[f] = [];
+  }
+}
+
 
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
