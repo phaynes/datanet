@@ -11,10 +11,8 @@ if [ ! -f setup_ubuntu.sh               -o \
      ! -f install_npm_packages.sh       -o \
      ! -f DATANET_CENTRAL_INSTALL.sh    -o \
      ! -f DATANET_OPEN_RESTY_INSTALL.sh -o \
-     ! -f print_example_usage.sh        -o \
-     ! -f ${DATANET_CENTRAL_TARBALL}    -o \
-     ! -f ${DATANET_OPEN_RESTY_TARBALL} ]; then
-  echo "USAGE: $0 missing files [versions.sh setup_ubuntu.sh, install_npm_packages.sh, DATANET_CENTRAL_INSTALL.sh, DATANET_OPEN_RESTY_INSTALL.sh, print_example_usage.sh, ${DATANET_CENTRAL_TARBALL}, ${DATANET_OPEN_RESTY_TARBALL}]"
+     ! -f print_example_usage.sh ]; then
+  echo "USAGE: $0 missing files [versions.sh setup_ubuntu.sh, install_npm_packages.sh, DATANET_CENTRAL_INSTALL.sh, DATANET_OPEN_RESTY_INSTALL.sh, print_example_usage.sh]"
   exit 2;
 fi
 
