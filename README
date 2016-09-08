@@ -1,12 +1,12 @@
 
 # FEDORA INSTALL
-  tar xvfz datanet_0.0.X.tgz
-  cd datanet_0.0.X
+  tar xvfz datanet_0.X.X.tgz
+  cd datanet_0.X.X
   ./FEDORA_INSTALL.sh
 
 # UBUNTU INSTALL
-  tar xvfz datanet_0.0.X.tgz
-  cd datanet_0.0.X
+  tar xvfz datanet_0.X.X.tgz
+  cd datanet_0.X.X
   ./UBUNTU_INSTALL.sh
 
 OpenResty files will be saved under the directory:
@@ -17,13 +17,4 @@ Datanet specific Lua files will be stored under the directory:
 
 Datanet configuration/locations will be stored under the directory:
   /usr/local/datanet/[conf,locations]
-
-Lua HTTPS-REST Client application stored in the file:
-  /usr/local/datanet/locations/client.lua
-
-Run Lua unit tests via:
-  /usr/local/datanet/locations/tester.lua
-
-Exercise Demo Lua application with bash script:
-  /usr/local/datanet/test/test_client.sh
 
