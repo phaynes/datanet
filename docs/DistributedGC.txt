@@ -1,0 +1,229 @@
+
+-------------------------------------------------------------------------------
+ Section1: Architecture Overview
+-------------------------------------------------------------------------------
+
+Datanet is a highly distributed data synchronization platform. Datanet utilizes CRDT based technologies to allow many masters to modify data concurrently and without coordination. Datanet supports basic CRDT data-structures [Number,String,Dictionary] as well as Arrays & other complex data-structures.
+Datanet is comprised of mutliple DataCenters (DC) and up to billions of Agents.
+
+Datanet's multiple DCs gossip with one another, form a geo-cluster, and elect a PrimaryDataCenter.
+Individual DCs contain multiple nodes which gossip, form a DC-cluster, and function collectively as a single distributed database.
+Agents reside as embedded libraries or stand-alone binaries in browsers, mobile-apps, IoT-apps, and app-server-caches. Agents typically function as write-able/replicating caches, containing only a small subset of Datanet's total data.
+
+Each Agent is connected to a single DC.
+Both DC-databases and Agent-databases have full master privileges: they can both write and replicate data.
+Both DC-DBs and Agent-DBs provide Causal Consistency through vector clock versioning systems.
+CRDT Arrays require distributed GarbageCollection (GC) which is implemented via a GC-versioning system.
+
+Replication (usually) begins at an Agent, where a data-delta (Delta) is sent from an Agent to its DC, which then forwards the Delta to ALL other DCs, who in turn forward the Delta to other Agents (named Subscribers) caching the key.
+Each DC keeps track of ALL Agents caching a key.
+Neither causal consistency nor GC-version checks are done during replication (rather at every end-point) allowing replication to flow quasi P2P (at one way packet transmission latency: e.g. AgentX->DC1->DC2->SubscriberY)
+Subscribers receiving replicated Deltas apply them (via CRDT algorithms) to their local copy of the key, acheiving a highly distributed Strong Eventual Consistency (SEC) system: each DB-master can write & replicate data without coordinating with other masters.
+
+
+-------------------------------------------------------------------------------
+ Section2: CRDT ARRAYS
+-------------------------------------------------------------------------------
+
+Before explaining how CRDT Arrays are implemented, it's necessary to briefly explain the structure of a CRDT in Datanet:
+  1.) CRDTs contain a metadata section and a data section
+  2.) CRDT's metadata section contains information on [document-creation, agent-versions, gc-versions, etc...]
+  3.) CRDT's data section contains the data for a given key
+  4.) Every data element in a CRDT is uniquely specified/versioned/addressable by a tuple
+
+The requirements for a CRDT Array are:
+  1.) be able to insert a new element and specify which element it will come after (in a highly distributed environment)
+  2.) automatically deal with conflicts when two elements specify they will come after the same element
+
+Now we can explain the implementation of CRDT Arrays in Datanet:
+  1.) CRDT ARRAYs are implemented as linked lists
+  2.) Each array element contains a left-hand-neighbor (LHN) which points to the previous element in the linked list (the initial element in the ARRAY points to NULL).
+  3.) LHN pointers specify another element's unique tuple
+  4.) When an element is inserted into an array, it specifies its LHN
+  5.) Due to the highly distributed nature of Datanet, two elements in an array may have the same LHN and the ordering of the array is achieved thru a two step process
+    A.) Step1: create a tree of linked-lists, by:
+        i.) identifying which elements in the chain are continuously linked to one another (via LHNs) -> resulting in a linked-list where each linked-list-node is an array of elements with common LHNs.
+        ii.)  Linked-list-node arrays (of elements with common LHNs) are then internally ordered using creation-timestamp sorting.
+    B.) Step2: traverse the tree recursively (left-to-right, depth-first) -> creating the resultant ARRAY
+
+Example1:
+  Here is a list of elements in an array (including Authoring Agent & creation-timestamp)
+    |--------+---------+-----------+-----+
+    | Agent  | Element | Timestamp | LHN |
+    |--------+---------+-----------+-----+
+    |   1    |   A1    |    1      |  0  |
+    |   1    |   B1    |    2      |  A1 |
+    |   1    |   C1    |    3      |  B1 |
+    |   2    |   B2    |    3      |  A1 |
+    |   2    |   C2    |    4      |  B2 |
+    |   3    |   C3    |    5      |  B2 |
+    |   3    |   D3    |    6      |  C3 |
+    |   4    |   B4    |    4      |  A1 |
+    |   4    |   C4    |    5      |  B4 |
+    |--------+---------+-----------+-----+
+
+  Step1: Array elements are sorted into the following tree (linked-list of arrays)
+               A1
+        +------+------+
+        B1     B2     B4     *NOTE: [B1,B2,B4] sorted to creation-timestamp
+        |   +--+--+   |
+        C1  C2    C3  C4     *NOTE: [C2,C3] sorted to creation-timestamp
+                  |
+                  D3
+
+  The tree will then be traversed using a left-to-right depth-first algorithm, to create the array: [A1,B1,C1,B2,C2,C3,D3,B4,C4].
+
+  NOTE: To illustrate the linked-list nature of the final data-structure, note D3 was added at TS:6, chronologically later than B4 at TS:4, but D3 comes before B4 in the ARRAY.
+
+
+-------------------------------------------------------------------------------
+ Section3: Tombstones
+-------------------------------------------------------------------------------
+
+Due to the highly distributed nature of Datanet's architecture, each CRDT-Array deletion does not delete elements but rather create DB-Tombstones. Tombstones are not visible when reading a key, but are used as positional metadata during Subscriber-side Delta application.
+
+Example2:
+  1.) Using the array from Example1
+    KEY1: {CRDT: {metadata:GC-version:1}, data:{[A1,B1,C1,B2,C2,C3,D3,B4,C4]}}
+  2.) Agent1 creates Delta101: {delete:B2} @timestamp100
+    NOTE: X() represents a tombstone
+    KEY1: {CRDT: {metadata:GC-version:1}, data:{[A1,B1,C1,X(B2),C2,C3,D3,B4,C4]}}
+  3.) Agent2 creates Delta201: {add_element:{D2,LHN(B2)}} @timestamp100 (concurrently w/ Agent1)
+    KEY1: {Delta201: {add_element:{D2,LHN(B2)}}}
+  4.) Both Agents merge one another's Deltas, since a tombstone preserves the positional metadata for B2, the Delta from Agent2 inserting D2 after B2 is inserted in the correct position
+    KEY1: {CRDT: {metadata:GC-version:1}, data:{[A1,B1,C1,X(B2),C2,C3,D3,D2,B4,C4]}}
+
+  Tree representation after both delete(B2) & Insert(D2,LHN(B2))
+               A1
+        +------+------+
+        B1   X(B2)    B4     *NOTE: [B1,X(B2),B4] sorted to creation-timestamp
+        |   +--+--+   |
+        C1  C2 C3 D2  C4     *NOTE: [C2,C3,D2] sorted to creation-timestamp
+               |
+               D3
+
+ Resulting in the array: [A1,B1,C1,X(B2),C2,C3,D3,D2,B4,C4]
+
+
+-------------------------------------------------------------------------------
+ Section4: Distributed Garbage Collection
+-------------------------------------------------------------------------------
+
+Tombstones accumulate over time, eventually taking up too much space and need to be garbage collected. Since DCs and Agents have different storage capabilities (large & small respectively), each is free to employ different Garbage Collection strategies.
+
+DC-level GC is driven by the PrimaryDC (elected during GeoCluster formation). The PrimaryDC issues a GC-Delta when the number of tombstones in a document passes a given threshold. GC-Deltas instruct DCs to remove specified tombstones from a key and store these tombstones as a GC-Summary. Agents receiving GC-Deltas must also remove the tombstones from the key, but are not required to store the GC-Summary.
+
+GC-Summaries are utilized to create positional metadata bridges between deltas of differing GC-versions. For instance, if an Agent sends a Delta w/ GC-version 5 and PrimaryDC's current GC-version is 8, a positional metadata bridge can be created by adding the positional metadata from GC-Summaries[5,6,7] to the CRDT to which the Delta is being applied. A CRDT that has positional metadata added to it is equivalent to a CRDT that never performed garbage collection, in other words the requisite positional metadata is guaranteed to be present (with respect to GC-versions). With a sufficient positional bridge, the PrimaryDC can not only apply the Delta w/ correct positioning, but also summarize the reordering needed to adjust the Delta so that it can be applied with positional correctness on Subscribers. This summary is sent in a PrimaryDC generated ReorderDelta and sent to ALL other DCs and interested Subscribers. Since subscribers may not be able to create the positional bridge (due to missing GC-Summaries) needed to apply an Out-of-GC-Version-Order-Delta correctly they will wait for the corresponding ReorderDelta to apply the original Delta.
+
+Garbage collection of tombstones removes positional data from the CRDT. If a Delta is received by a Subscriber with Array LHNs that have been GCed, the Subscriber can not apply the Delta and assure positional correctness. For this reason, the PrimaryDC issues a ReorderDelta for any Delta containing a GC-version less then the PrimaryDC's current GC-version. ReorderDeltas instruct Subscribers how to apply this Out-of-GC-Version-Order-Delta by supplying missing positional metadata. Once the corresponding ReorderDelta is applied to the Out-of-GC-Version-Order-Delta, positional correctness is assured.
+
+
+Example3: PrimaryDC creating a ReorderDelta
+  1.) We start at the following state: (NOTE: lots of things happened previously to get here)
+    KEY1: {CRDT: {metadata:GC-version:1}, data:{[A1,B1,C1,B2,C2,C3,D3,B4,C4]}}
+  2.) Delta100 processed deleting: [B1,C1,C3]
+    KEY1: {CRDT: {metadata:GC-version:1}, data:{[A1,X(B1),X(C1),B2,C2,X(C3),D3,B4,C4]}}
+  3.) PrimaryDC detects #tombstones(3) in CRDT is over threshold(2) and issues GC-Delta2
+    A.) GC-Delta2 contains instructions to
+     i.)   remove tombstones for [B1,C1,C3] from the CRDT
+     ii.)  store these tombstones (w/ positional metadata) in GC-summary2
+     iii.) perform LHN-reorders to accomodate for the missing tombstones
+     iv.)  increase GC-version to 2
+       KEY1: {GC-Delta2: {tombstone:[B1,C1,D3], lhn_reorder:{D3:LHN(C2)}, GC-version:2}}
+       KEY1: {GC-summary2: [{B1,LHN(A1)},{C1,LHN(B1},{C3,LHN(C2)}]}
+       KEY1: {CRDT: {metadata:{GC-version:2}}, data:{[A1,B2,C2,D3,B4,C4]}}
+  4.) PrimaryDC processes Delta101: {GC-version:1, add_element:{D1,LHN(C1)}}
+    PrimaryDC detects an Out-of-GC-Version-Order-Delta and issues ReorderDelta2 by:
+    A.) taking the current CRDT:
+      KEY1: {CRDT: {metadata:GC-version:2}, data:{[A1,B2,C2,D3,B4,C4]}}
+    B.) adding GC-summary2 to it:
+      KEY1: {GC-summary2: [{B1,LHN(A1)},{C1,LHN(B1},{C3,LHN(C2)}]}
+    C.) resulting in a CRDT where the tombstone-removals from GC-Delta2 never happened
+      KEY1: {CRDT: {metadata:GC-version:2}, data:{[A1,X(B1),X(C1),B2,C2,X(C3),D3,B4,C4]}}
+    D.) then applying the Delta to the resultant CRDT:
+      KEY1: {CRDT: {metadata:GC-version:2}, data:{[A1,X(B1),X(C1),D1,B2,C2,X(C3),D3,B4,C4]}}
+    E.) The result of the delta-application is first stored then evaluated to create a ReorderDelta
+    F.) (Simplified explanation) The evaluations starts a search at D1 and moves left in the array to find the closest continously chained LHN that also exists in the current CRDT (5A) -> finding a new LHN (A1) for element D1:
+      5D: [A1<-X(B1)<-X(C1)<-D1,....]
+           |
+      5A: [A1,...]
+      ----------------------------
+          new LHN for D1 is A1
+    G.) PrimaryDC creates ReorderDelta2 and sends it to subscribers
+     ReorderDelta2: {referenceDelta:Delta101, GC-version:2, reorder:{D1,LHN(A1)}}
+
+
+Example4: Subscriber processes Out-of-GC-Version-Order-Delta then ReorderDelta 
+  1.) Subscriber starts with array used in Example1
+    KEY1: {CRDT: {metadata:GC-version:1}, data:{[A1,B1,C1,B2,C2,C3,D3,B4,C4]}}
+  2.) Subscriber receive Delta100 that deletes [B1,C1,C3]
+    KEY1: {CRDT: {metadata:GC-version:1}, data:{[A1,X(B1),X(C1),B2,C2,X(C3),D3,B4,C4]}}
+  3.) Subscriber receives GC-Delta2 w/ instructions to permanently delete tombstones for [B1,C1,D3] and increase GC-version to 2
+    KEY1: {CRDT: {metadata:GC-version:2}, data:{[A1,B2,C2,D3,B4,C4]}}
+    NOTE: GC-summary not store on Agent
+  4.) Subscriber receives Delta101: {GC-version:1 add_element:{D1,LHN(C1)}}
+    Subscriber queues Out-of-GC-Version-Order-Delta
+  5.) Subscriber receives ReorderDelta2 w/ referenceDelta:Delta101 and reorder-information: {GC-version:2, reorder:{D1,LHN(A1)}}
+    Subscriber rewrites Delta101 to be: {GC-version:2, add_element:{{D1,LHN(A1)}}
+    KEY1: {CRDT: {metadata:GC-version:2}, data:{[A1,D1,B2,C2,D3,B4,C4]}}
+
+Creating ReorderDeltas is fairly complicated. If a ReorderDelta is at GCV 5 and PrimaryDC's GCV is 8, the ReorderDelta will have 3 reorder sections, one for each GCV. To create a reorder section per missing-GCV, PrimaryDC uses GC-Summaries to first rewind to GCV5, create GCV5's reorder section, and then iteratively forward the GCV, creating a reorder section per GCV.
+
+Agents applying ReorderDeltas may be at differing GCVs due to distributed race-conditions and due to AGENT-GC-WAIT (explained below). For this reason each reorder section in a ReorderDelta is added to the Agent's local GC-Summary (for that GCV). ReorderDelta reorder sections are applied up to the Agent's current-GCV, and in the case of finishing AGENT-GC-WAIT the modified GC-Summaries are then applied, insuring positional correctness at every step.
+
+AGENT-GC-WAIT is a condition where an Agent receives a GC-DELTA but can not apply the GC-DELTA due to races between local Deltas and the GC-DELTA. An example of this would be an Agent has just create an AgentDelta and then immediately receives a GC-DELTA that does not yet have positional-reordering information for the recently created AgentDelta. Using this example, the Agent will WAIT to DO-GC until it has received a ReorderDelta for the recently created AgentDelta. An Agent temporarily behing BEHIND in its GCV is not a problem as additional positional metadata is never a problem (insufficient positional metadata would be) and any AgentDelta will not utilize the additional positional metadata as it is all tombstoned.
+
+Anchors: The roots of a array may become Anchors upon GC-removal. An anchor is a tombstone that is never removed as it is needed to root the array. Since position in arrays is determined via LHNs and removing the roots of an array can not be solved by reordering LHNs, Anchors are employed. Anchors must be referenced within the array, once all elements referencing the anchor are removed, the anchor can also be removed (REF: DanglingAnchor.
+AnchorCompaction: Compacting anchors is a simple trick, that works because a Post-GC CRDT has zero tombstones -> therefore immutable order Sort the array and then compact S[] to 2 entries -> (1st entry is S[0], 2nd entry is the array index of the entry (switched to DESC) TODO: Elaborate in plain english
+GC-WAIT-INCOMPLETE: On Apply GC-Reorder, elements are checked for the following condition: element's LHN is getting removed AND there is no lhn_reorder[] for the element. This condition exists due to a (rare) race condition where a SubscriberDelta arrives before the GC-Delta AND/OR ReorderDelta that would reorder it, which if normally applied would not have the guarantee of positional correctness. When this condition is detected the Agent enters GC-WAIT-INCOMPLETE where the GC-Delta is not arrived until the needed ReorderDelta is received
+
+      
+
+-------------------------------------------------------------------------------
+ Section5: Distributed Garbage Collection Reaping
+-------------------------------------------------------------------------------
+
+Agents are not required to store GC-Summaries, so they are free to either never store GC-Summaries (except if those GC-Summaries are in GC_WAIT). A wiser strategy for Agents is to store 1 GC-Summary per key and additionally do LRU eviction system-wide on GC-Summaries. Storing a single GC-Summary per key allows the Subscriber itself to create a positional metadata bridge when it receives a Delta that is one GC-version behind (which is the most common Out-of-GC-Version-Order-Delta case)
+
+At the DC level, GC-Summaries accumulate over time, eventually taking up too much space, and must be reaped. The PrimaryDC drives GC-Summary-Reaping. A DC-system-wide SLA on GC-Summaries is defined (e.g. keep GC-summaries <10 minutes old) and PrimaryDC reaps GC-Summaries not covered by the SLA (i.e. GC-summaries older than 10 minutes) using a LRU algorithm. The PrimaryDC sends Reap-Deltas to ALL other DCs which permanently remove the GC-Summary and then Ack the Reap-Delta. When the PrimaryDC has received Reap-Delta-ACKs from ALL other DCs, it will also remove the GC-Summary -> this insures the PrimaryDC always has the lowest GC-Summary (i.e. the superset of positional information). Once a GC-summary is reaped, it is permanently gone. If an Agent is offline for a time longer than the time covered by the SLA (e.g. 10 minutes) all Deltas w/ GC-versions that have been reaped will be rejected/ignored.
+
+*Agents may be offline for a SLA defined period of time (e.g. 10 minutes). This SLA is designed to handle temporary network problems or network-lag, it can also cover the use-case where a device is offline, but this is not its intended purpose.
+
+When Agents are temporarily offline & reconnect, they need to sync any changes that occured in the system while they were offline and also sync any changes they made locally while they were offline. A reconnecting Agent informs its DC of the last change it received from the DC (using the 'cluster_processed' counter contained in every Delta) and the DC responds with a list of keys that were changed since this change. The DC keeps a cache of which keys have been modified, if the cluster_processed the Agent sends when reconnecting is not found in the cache (i.e. its been offline too long), the DC informs the Agent to do a full-sync.
+The Agent then asks the DC for the current copy of each of these keys, the DC responds with the key's CRDT as well as any GC-summaries the Agent needs to update any of its pending deltas to the Primary-DCs current GC-version. The Agent uses the supplied GC-summaries to form a positional metadata bridge to the current GC-version and applies all local Deltas locally at the current GC-version. 
+
+Example5: Agent5 temporarily offline syncrhonization:
+  1.) Agent5 start state:
+    AGENT: {cluster_processed:306}
+    KEY1:  {CRDT: {metadata:GC-version:1}, data:{[A1,B1,C1,B2,C2,C3,D3,B4,C4]}}
+  2.) Agent5 loses connection to its DataCenter
+  3.) Agent5 creates a delta:
+    Delta508: {key:KEY1, GC-version:1, add_element: {A5,LHN(C1)}}
+  4.) Agent5 successfully reconnects to its DataCenter
+  5.) Agent5 sends its DC an AgentOnline request w/ arguments: {cluster_processed:306}
+  6.) DC responds w/ information: {changed_keys:[KEY1]}
+  7.) Agent5 sends DC request: {GetCurrentKey:{key:KEY1,GC-version:1}}
+      NOTE: GC-version is Agent5's current GC-version for KEY1
+  8.) DC processes GetCurrentKey request, returning current CRDT and any missing GC-summaries
+      NOTE: PrimaryDC's current GC-version for KEY1 is 2
+      response: {
+        KEY1: {CRDT: {{metadata:GC-version:2}, data:{[A1,B2,C2,D3,B4,C4]}},
+               GC-summary2: [{B1,LHN(A1)},{C1,LHN(B1},{C3,LHN(C2)}]}
+      }
+  9.) Agent5 applies GC-Summary2 to PrimaryDC's current CRDT:
+      KEY1: {CRDT: {metadata:GC-version:2}, data:{[A1,X(B1),X(C1),D1,B2,C2,X(C3),D3,B4,C4]}}
+  10.) Agent5 then uses the same algorithm described in Example3-Step4F to rewrite Delta508: A5 finds new LHN A1, Delta508 is modified locally and applied as:
+    Delta508: {key:KEY1, GC-version:2, add_element: {A5,LHN(A1)}}
+  11.) Agent5 sends unmodified Delta508 to DC, which will result in PrimaryDC creating a definitive ReorderDelta for this OOO-GCV Delta
+
+
+-------------------------------------------------------------------------------
+ Section6: References
+-------------------------------------------------------------------------------
+
+  CRDT:               http://bit.ly/1F07aZ0
+  SEC:                http://bit.ly/1GGjMoS
+  Causal Consistency: http://bit.ly/1U91sNf
+  DB-Tombstone:       http://bit.ly/1U938Gx
+
+

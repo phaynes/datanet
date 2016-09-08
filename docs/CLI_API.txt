@@ -1,0 +1,579 @@
+
+Purpose:
+ Short description of key concepts in Datanet and Datanet's simplest API:
+ command line interface API.
+
+SECTION ONE: Key Concepts
+
+  The Datanet has 4 dimensions: [Users, Devices, Channels, Documents].
+
+  Basics:
+    1.) Users have login/password authentication.
+    2.) Devices are physical machines (e.g. app-servers or mobile-phones).
+    3.) Users are stationed on Devices.
+    4.) Users subscribe to Channels.
+    5.) Channels are pub/sub channels publising Documents.
+    6.) Documents contain data and metadata.
+    7.) A Document's metadata specifies Channels to be published to.
+    8.) Replication is accomplished by publishing Documents on Channels to
+        subscribers on different Devices 
+
+  Details:
+    1.) AdminUsers grant priviliges on Channels to NormalUsers.
+    2.) NormalUsers subscribe to Channels (on which they have appropriate
+        priviliges).
+    3.) A NormalUser (referred to as User) can subscribe to multiple Channels.
+    4.) Applications (e.g. mobile-apps or app-server-apps) station Users on
+        Devices the application is running on
+    5.) A Device can have multiple Users stationed on it, mobile-devices
+        usually only have one User stationed on them.
+    6.) A Document contains data.
+    7.) A Document also contains metadata specifying to which Channel(s) it
+        will be published.
+    8.) A User creating, modifying, or removing a Document must have WRITE
+        priviliges on ALL Channels specified in the Document's metadata.
+    9.) A Document can specify multiple Channels to replicate to, although one
+        Channel per Document is the norm.
+
+  Simplest Replication Example:
+    UserX runs an app on his iPhone (Device123) and on his iPad (Device456).
+    The app stations UserX on both devices (123 & 456).
+    An AdminUser grants UserX permission to write on channel 'ChanUserX'.
+    UserX replicates data between his two devices by creating a document with
+    key 'MyData' and specifying channel 'ChanUserX' in the document's metadata.
+    That's it, any modification done (on either device) to document 'MyData' is
+    replicated to both UserX's iPhone & iPad.
+
+  Simple Multi-User/Channel/Device Example:
+    This example is slightly more advanced, boasting 3 Users, 3 Channels, and
+    6 Documents
+
+    User1 subscribes to ChannelA
+    User2 subscribes to ChannelB
+    User3 subscribes to ChannelA, ChannelB, ChannelC
+
+    DoumentA specifies ChannelA
+    DoumentB specifies ChannelB
+    DoumentC specifies ChannelC
+    DoumentX specifies ChannelA,ChannelB
+    DoumentY specifies ChannelB,ChannelC
+    DoumentZ specifies ChannelA,ChannelB,ChannelC
+
+    Device101 stations User1 on itself
+    Device102 stations User2 on itself
+    Device103 stations User3 on itself
+    Device104 stations User1 & User2 on itself
+
+    The following is a table of Devices, Users, Channels, and Documents.
+      ---------+------+---------+-------------|
+      | Device | User | Channel | Documents   |
+      ---------+------+---------+-------------|
+      | 101    | 1    | A       | A,X,Z       |
+      ---------+------------------------------|
+      | 102    | 2    | B       | B,X,Y,Z     |
+      ---------+------------------------------|
+      | 103    | 3    | C       | A,B,C,X,Y,Z |
+      ---------+-------------------------------
+      | 104    | 1&2  | A&B     | A,B,X,Y,Z   |
+      ---------+-------------------------------
+
+    Replication is performed pub/sub style using Channels:
+      1.) Documents specify Channels to be published to     -> PUBLISH
+      2.) Devices station Users which subscribe to Channels -> SUBSCRIBE
+
+
+SECTION TWO: Command Line Tool API
+
+  Datanet's command line interface is currently called 'zync-cli.js' and is run
+  from linux command line via 'node zync-cli.js AGENT-IP AGENT-PORT'
+
+  Currently the prompt for the command line interface is 'zync>'
+
+  The following is a list of commands the command line interface supports and
+  examples on how to use them.
+
+  PART-ONE: Admin commands
+    1.1.) ADD-USER
+      Purpose:
+        ADD-USER command adds a user with password to Datanet
+      Notes:
+        * Only Admin users can call ADD-USER
+        * Username must be unique
+        * ROLE can be [ADMIN,USER]
+      API:
+        ADD-USER username password ROLE
+      Example:
+        Add normal user 'User2' w/ password 'MyPass' to Datanet
+          zync> ADD-USER User2 MyPass USER
+          +OK
+
+    1.2.) GRANT
+      Purpose:
+        GRANT command grants a user priviliges to a channel
+      Notes:
+        * Only Admin users can call GRANT
+        * Privliges can be [READ,WRITE]
+      API:
+        GRANT username channel_name PRIVILIGE
+      Example:
+        Grant 'User3' WRITE priviliges on channel 'ChanUser3'
+          zync> GRANT User3 WRITE ChanUser3
+          +OK
+
+    1.3.) REVOKE -> TODO: DOCUMENT
+    1.4.) ISOLATION -> TODO: DOCUMENT
+
+  PART-TWO: User commands
+    2.1.) USER
+      Purpose:
+        USER command switches client's current user
+      Notes:
+        The User will be authenticated
+      API:
+        USER username password
+      Example:
+        Switch to 'User2' w/ password 'MyPass'
+          zync> USER User2 MyPass
+          +OK
+
+    2.2.) STATION
+      Purpose:
+        STATION command stations a User on the Agent
+      Notes:
+        * The User will be authenticated
+        * If the User has already subscribed to some channels, ALL the keys in 
+          those channels will be asynchronously replicated to this device
+      API:
+        STATION username password
+      Example:
+        Station 'User3' w/ password 'SuperPass'
+          zync> STATION User3 SuperPass
+          +OK
+
+    2.3.) DESTATION -> TODO: DOCUMENT
+
+    2.4.) SUBSCRIBE
+      Purpose:
+        SUBSCRIBE command subscribes the current user to a given Channel
+      Notes:
+        * The User will be authenticated
+        * ALL the keys in this channel will be asynchronously replicated to ALL 
+          devices the current user is stationed on
+      API:
+        SUBSCRIBE channel_name
+      Example:
+        Subscribe current user to channel: 'ChanUser3'
+          zync> SUBSCRIBE ChanUser3
+          +OK
+
+    2.5.) UNSUBSCRIBE -> TODO: DOCUMENT
+
+  PART-THREE: Data-persistence commands
+    3.1.) NAMESPACE
+      Purpose:
+        NAMESPACE command switches client's current namespace
+      Notes:
+        The namespace is not validated
+      API:
+        NAMESPACE namespace
+      Example:
+        Switch to namespace 'production'
+          zync> NAMESPACE production
+          +OK
+
+    3.2.) COLLECTION
+      Purpose:
+        COLLECTION command switches client's current collection
+      Notes:
+        The collection is not validated
+      API:
+        COLLECTION collection_name
+      Example:
+        Switch to collection 'user_data'
+          zync> COLLECTION user_data
+          +OK
+
+    3.3.) STORE
+      Purpose:
+        STORE command persists a data-document to Datanet
+      Notes:
+        * Document must be valid JSON
+        * '_channels' is a keyword
+        * Document will be replicated throughout entire Datanet according to
+          its channels
+        * User must be subscribed and have write-permissions to ALL channels
+          specified in Document's metadata
+      API:
+        STORE key json
+      Example:
+        Store document w/ key: 'MyData', replicating to channel: 'ChanUser3'
+          zync> STORE MyData {_channels : ['ChanUser3'],
+                              user_id   : 3,
+                              firstname : 'John',
+                              lastname  : 'Doe',
+                              age       : 22,
+                              height    : 65,
+                              weight    : 170,
+                              events    : ['user_registered']}
+          +OK
+
+    3.4.) REMOVE
+      Purpose:
+        REMOVE command removes a single document from Datanet
+      Notes:
+        * Documented will be removed throughout entire Datanet according to
+          its channels
+        * User must be subscribed and have write-permissions to ALL channels
+          specified in Document's metadata
+      API:
+        REMOVE key
+      Example:
+        Remove document w/ key 'Mydata'
+          zync> REMOVE Mydata
+          +OK
+  
+    3.5.) FETCH
+      Purpose:
+        FETCH command fetches a key's CRDT
+      Notes:
+        * FETCH is the first step when modifying data (FETCH->modify->COMMIT)
+      API:
+        FETCH key
+      Example:
+        Fetch document w/ key 'Mydata'
+          zync> FETCH Mydata
+          +OK
+
+    3.6.) COMMIT
+      Purpose:
+        COMMIT command commits modifications to a document
+      Notes:
+        * Agent will persist then replicate the commit as a Delta
+        * Commits may be rejected (e.g. key was removed)
+      API:
+        COMMIT key
+      Example:
+        Commit modifications to document w/ key 'MyData'
+          zync> COMMIT MyData
+          +OK
+
+    3.7.) PULL             -> TODO: DOCUMENT
+      PULL means take the current changes the Client has done (the oplog) and
+      merge them with the Agent's current CRDT (which may have changed since
+      the Client first FETCHED the key)
+
+    3.8.) STATELESS-CREATE -> TODO: DOCUMENT
+      STATELESS-CREATE creates an empty document with the given 
+      [namespace, collection, key] and sets it's 'stateless' flag
+      which must be set for STATELESS-COMMIT to work
+      NOTE: this command is local to the client -> Zero I/O
+
+    3.9.) STATELESS-COMMIT -> TODO: DOCUMENT
+      STATELESS-COMMIT shortens and simplifies the traditional COMMIT path.
+      COMMITS require 3 steps: [FETCH,modify,COMMIT] -> 2 I/Os
+      STATELESS-COMMITS require 3 steps:
+      [STATELESS-CREATE, modify, STATELESS-COMMIT] but only ONE I/O
+
+    3.10.) CACHE
+      Purpose:
+        CACHE command caches a document on Agent
+      Notes:
+        * User must have READ or WRITE priviliges on at least one of
+          Document's Channels
+      API:
+        CACHE key
+      Example:
+        Cache document w/ key 'HotData'
+          zync> CACHE HotData
+          +OK
+
+    3.11.) EVICT       -> TODO: DOCUMENT
+      EVICT means inform Central to no longer publish Deltas about this key
+      to this device and remove this key locally.
+      EVICT is also automatically called on both SubscriberDelta &
+      SubscriberMerge if the (plugged-in) storage layer has evicted the
+      correspoding key w/o notifying the Agent (e.g. Memcache eviction).
+
+    3.12.) PIN         -> TODO: DOCUMENT
+      PIN means do not reap this key on this device during local cache eviction
+
+    3.13.) WATCH       -> TODO: DOCUMENT
+      WATCH means do not store this key on this device, but do forward any 
+      deltas on this key (along with corresponding summary of changes) up
+      to userpace. This allows a device with low storage capacity to WATCH
+      many keys
+
+    3.14.) LOCAL-EVICT -> TODO: DOCUMENT
+      LOCAL-EVICT means remove the key locally, but do not inform Central of
+      eviction. This effectively turns a CACHED key into a WATCHED key.
+      NOTE: This is both a command and a cache-level setting.
+
+    3.15.) STICKY-CACHE -> TODO: DOCUMENT
+      STICKY-CACHE is used in an ApplicationServerCluster setup to signify
+      that a key should be cached on a hashable-server-node. A STICKY key
+      will be cached on a different machine after an ApplicationServerCluster
+      reorganization.
+
+    3.16.) EXPIRE
+      Purpose:
+        EXPIRE command expires a Document system-wide in X seconds
+      Notes:
+        * User must have WRITE priviliges on ALL of the Document's Channels
+        * Expiration seconds can contain milliseconds (e.g. 5.001 seconds)
+      API:
+        EXPIRE key seconds
+      Example:
+        Expire document w/ key 'HotData' in 5.001 seconds
+          zync> EXPIRE HotData 5.001
+          +OK
+
+
+    3.17.) NOTIFY
+      Purpose:
+        NOTIFY command informs Agent to notify a given URL when documents are
+        modified
+      Notes:
+        * Only Admin users can call NOTIFY
+        * URL must be either HTTPS or WSS
+        * Current User will be stored as the authentication for this NotifyURL
+          Only Deltas bound for this User will be sent to this NotifyURL
+        * Format of NOTIFY message described in section "Notify Messages"
+      API:
+        NOTIFY URL filter
+      Example:
+        A.) Notify URL wss://localhost:1111 of ALL changes (only 2 args)
+              zync> NOTIFY wss://localhost:1111
+              +OK
+        B.) Notify URL wss://localhost:2222 of changes to document 'MyData'
+            in namespace 'production' and collection 'user_data'
+              zync> NOTIFY wss://localhost:2222 production user_data MyData
+              +OK
+        C.) Notify URL wss://localhost:3333 of changes to namespace 'production'
+              zync> NOTIFY wss://localhost:3333 production
+              +OK
+
+  PART-FOUR: Data-modification commands
+    NOTES:
+      A.) Data-modificaton commands are applied to the current document, the
+          previous document fetched (via the FETCH command)
+      B.) Fields are accessed via dot-notation lookups
+          Examples:
+          1.) the root-level field '{age:}' is accessed via 'age'
+          2.) the nested field '{user:{actions:[]}}'
+              is accessed via 'user.actions'
+          3.) the nested array element '{user:{actions:[4]}}'
+              is accessed via 'user.actions.4'
+      C.) Values can be any valid JSON
+      D.) Data-modifications will not be persisted or replicated until the
+          COMMIT command is called
+
+    4.1.) SET
+      Purpose:
+        SET command sets a field to a value in the current document
+      Notes:
+        * if field does not exist it will be created
+        * if field does exist it will be overwritten
+      API:
+        SET field value
+      Example:
+        1.) Set field 'firstname' to value 'BILL'
+              zync> SET firstname 'BILL'
+              +OK
+        2.) Set field 'actions' to array with two events
+              zync> SET actions ["user_registered","user_logged_in"]
+              +OK
+        3.) Set 3rd element in array 'actions' to 'logged_out'
+              zync> SET actions.3 'logged_out'
+              +OK
+
+    4.2.) DELETE
+      Purpose:
+        DELETE command deletes a field from the current document
+      Notes:
+        * if field does not exist, DELETE is a no-op
+      API:
+        DELETE field 'limited_time_offer'
+      Example:
+        1.) Delete field 'limited_time_offer'
+              zync> DELETE limited_time_offer
+              +OK
+
+    4.3.) INSERT
+      Purpose:
+        INSERT command inserts an element into an array at a position in the
+        current document
+      Notes:
+        * if field does not exist, INSERT will create an empty array
+        * if position is greater than the length of the array, null values
+          will be added to fill in missing positions
+          (SORRY: it's a JSON standard)
+        * If field is not an array (e.g an object), an error will be returned
+      API:
+        INSERT array_name position value
+      Example:
+        1.) Insert 'logged_in' event to first element in
+            array-field 'user_actions'
+              zync> INSERT user_actions 0 'logged_in'
+              +OK
+        2.) Same use-case but 'logged_in' event is a dictionary and
+            array-field is nested field 'user{actions:[]}'
+              zync> INSERT user.actions 0 {"action"    : "logged_in",
+                                           "timestamp" : 1435775648,
+                                           "device"    : 456
+                                          }
+              +OK
+
+    4.4.) INCR
+      Purpose:
+        INCR command increments a numerical field by a given number in the
+        current document
+      Notes:
+        * if field does not exist, INCR is a no-op
+        * if field is not a numerical field (e.g. string), an error is returned
+      API:
+        INCR field by_value
+      Example:
+        Increment field 'age' by value 1
+          zync> INCR age 1
+          +OK
+
+    4.5.) DECR
+      Purpose:
+        DECR command decrements a numerical field by a given number in the
+        current document
+      Notes:
+        * if field does not exist, DECR is a no-op
+        * if field is not a numerical field (e.g. string), an error is returned
+      API:
+        DECR field by_value
+      Example:
+        Decrement field 'weight' by value 5
+          zync> DECR weight 5
+          +OK
+
+    4.6.) LPUSH -> TODO: DOCUMENT
+    4.7.) RPUSH -> TODO: DOCUMENT
+
+  PART-FIVE: App-Server-Cluster I/O commands
+    NOTES:
+      A.) App-Server-Clusters are formed by Agents residing on App-Servers
+          configured to gossip with one another and form a cluster
+      B.) Gossip port & ip are configured in agent.conf section
+          'app-server-cluster'
+      C.) Devices can send messages and requests to App-Servers
+      D.) App-Servers can send messages to Devices and Users
+      E.) App-Server bound messages and requests will be sent from devices
+          to the datanet, which will send them to the Agents residing on
+          the App-Servers which will make localhost HTTPS requests to the
+          localhost App-Server
+      F.) Device and User bound messages will be sent from the App-Server
+          to its localhost Agent which will send the message to the Datanet
+          which will send the message to the Device or User
+
+    5.1.) MESSAGE
+      Purpose:
+        MESSAGE command sends a Message from a Device to an App-Server or
+        from an App-Server to a Device or User
+      Notes:
+        * MESSAGE BODY must be valid JSON
+        * Messages can be made sticky by specifying a 'route.key'
+      API:
+        MESSAGE json-message
+      Example:
+        1.) Send message from Device to App_server w/ route-key username=BILL
+              zync> MESSAGE {"route"    : {"key" : "username"},
+                             "action"   : "profile",
+                             "username" : "BILL"}
+              +OK
+        2.) Send message from App-Server to Device notifying it needs to sync
+              zync> MESSAGE {"route"  : {"device" : 1000000002},
+                             "action" : "do_sync"}
+              +OK
+        3.) Send message from App-Server to User on successful registration
+              zync> MESSAGE {"route"  : {"user" : "BILL"},
+                             "action" : "register",
+                             "status" : "SUCCESS"}
+              +OK
+
+    5.2.) REQUEST
+      Purpose:
+        REQUEST command sends a request from a Device to an App-Server which
+        replies to the Device (i.e. client-server request-response)
+      Notes:
+        * REQUEST BODY must be valid JSON
+        * REQUESTS can be made sticky by specifying a 'route.key'
+        * Replies must be valid JSON
+      API:
+        REQUEST son-message
+      Example:
+        Devices requests emails for user JANE from App-Server
+          zync> REQUEST {"route"    : {"key" : "username"},
+                         "action"   : "get-emails",
+                         "username" : "JANE"}
+          EXAMPLE RESPONSE:
+            [{"sender" : "BILL, "subject" : "wanna get lunch?"},
+             {"sender" : "BILL, "subject" : "wow that restaruant was great"}]
+
+
+SECTION THREE: Notify Messages
+
+  The command NOTIFY tells the Agent to send notify-messages to a given URL. 
+
+  This section explains the format of the notify-messages.
+
+  Notify messages are made up of 4 sections [key,deltas,json,flags]
+    1.) The key section contains the namespace, collection, keyname of the
+        modified document
+    2.) The deltas sections contains a list of fields that were modified.
+        * Operations can be [set,delete,insert,incr,decr]
+        * Path is a dot-notation representation of the modified field
+    3.) The json section is the document after it was modified
+    4.) The flags section describes the modification:
+          A.) selfie -> performed on local agent
+          B.) full_document_sync -> when an Agent changes from offline to 
+                                    online a full_document_sync is performed
+                                    on any Document that has been modified
+                                    (by other Agents) since this Agent
+                                    went offline
+          C.) remove -> modification is removal of document
+          D.) initialize -> modification is creation of document
+
+
+  EXAMPLE:
+    In this example John Smith has just turned 21 and his age is being
+    incremented by one.
+
+  MESSAGE:
+    {
+        "key": {
+            "namespace"  : "production",
+            "collection" : "user_data",
+            "name"       : "User_12345"
+        },
+        "deltas": [
+            {
+                "op"    : "incr",
+                "path"  : "age",
+                "value" : 1
+            }
+        ],
+        "json": {
+            "_id": "User12345",
+            "_channels": [
+                "TEST_CHANNEL"
+            ],
+            "firstname" : "JOHN",
+            "lastname"  : "SMITH",
+            "age"       : 21,
+            "height"    : 68,
+            "weight"    : 180
+        },
+        "flags": {
+            "selfie"             : false,
+            "full_document_sync" : false,
+            "remove"             : false,
+            "initialize"         : false
+        }
+    }
+
+
