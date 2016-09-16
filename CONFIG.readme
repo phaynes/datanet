@@ -1,7 +1,7 @@
 
 CONFIGURATION:
 
-SIMPLE CONFIG:
+PART ONE: SIMPLE CONFIG:
   The simplest configuration setup for Datanet's Central component is found in ~/node_modules/zync/conf/both_DC1-1.cfg
 
   The file both_DC1-1.cfg is a single configuration file for the entire Central component
@@ -28,9 +28,9 @@ SIMPLE CONFIG:
         }
       },
       "database" : {
-        "name" : "REDIS",           // CENTRAL DATABASE NAME [REDIS,MONGO,MEMORY]
-          "ip"   : "127.0.0.1",       // CENTRAL DATABASE IP
-        "port" : 6000               // CENTRAL DATABASE PORT
+        "name" : "REDIS",     // CENTRAL DATABASE NAME [REDIS,MONGO,MEMORY]
+        "ip"   : "127.0.0.1", // CENTRAL DATABASE IP
+        "port" : 6000         // CENTRAL DATABASE PORT
       }
     }
 
@@ -41,5 +41,153 @@ SIMPLE CONFIG:
   This Central server persists data in a REDIS database at ip:port 127.0.0.1:6000
 
 
-ROUTER STORAGE CONFIG
-  TODO
+PART TWO: ROUTER & STORAGE CONFIG
+  To scale better, each Central node can be broken up into two pieces [ROUTER & STORAGE] and connected by a configurable QUEUE. ROUTER takes care of routing Deltas & DeltaCommits to Subscriber. STORAGE handles applying Deltas and resyncing offline Agents.
+
+ROUTER CONFIG:
+  NOTES: 1.) QUEUE & DATABASE have the same (ip,port) -> this is OK
+         2.) Following fields must be unique:
+               uuid, wss.server.[ip,port], backend.server.[ip,port]
+  The file is a JSON object with the following syntax:
+    {
+      "role" : "ROUTER"              // ROLE
+      "uuid" : 101,                  // UNIQUE CENTRAL SERVER UUID
+      "datacenter" : {
+        "name" : "D1"                // UNIQUE DATACENTER NAME
+      },
+      "wss" : {
+        "server" : {
+          "hostname" : "127.0.0.1", // WSS SERVER HOSTNAME (INCOMING)
+          "ip"       : "0.0.0.0",   // WSS SERVER LISTEN-IP (INCOMING)
+          "port"     : 10101        // WSS SERVER PORT (INCOMING)
+        }
+      },
+      "backend" : {
+        "server" : {
+          "hostname" : "localhost", // BACKEND HOSTNAME (INTERNAL)
+          "ip"       : "0.0.0.0",   // BACKEND LISTEN-IP (INTERNAL)
+          "port"     : 20101        // BACKEND SERVER PORT (INTERNAL)
+        }
+      },
+      "database" : {
+        "name" : "REDIS",     // CENTRAL DATABASE NAME [REDIS,MONGO,MEMORY]
+        "ip"   : "127.0.0.1", // CENTRAL DATABASE IP
+        "port" : 6000         // CENTRAL DATABASE PORT
+      },
+      "dataqueue" : {
+        "name" : "REDIS",     // CENTRAL QUEUE NAME [REDIS]
+        "ip"   : "127.0.0.1", // CENTRAL QUEUE IP
+        "port" : 6000         // CENTRAL QUEUE PORT
+      }
+    }
+
+
+
+STORAGE CONFIG:
+  NOTES: 1.) ROUTER & STORAGE 'database' must be different
+         2.) ROUTER & STORAGE 'queue' must be the same
+         3.) Following fields must be unique: uuid, backend.server.[ip,port]
+  The file is a JSON object with the following syntax:
+    {
+      "role" : "STORAGE",            // ROLE
+      "uuid" : 1101,                 // UNIQUE CENTRAL SERVER UUID
+      "datacenter" : {
+        "name" : "D1"                // UNIQUE DATACENTER NAME
+      },
+      "backend" : {
+        "server" : {
+          "hostname" : "localhost", // BACKEND HOSTNAME (INTERNAL)
+          "ip"       : "0.0.0.0",   // BACKEND LISTEN-IP (INTERNAL)
+          "port"     : 21101        // BACKEND SERVER PORT (INTERNAL)
+        }
+      },
+      "database" : {
+        "name" : "REDIS",     // CENTRAL DATABASE NAME [REDIS,MONGO,MEMORY]
+        "ip"   : "127.0.0.1", // CENTRAL DATABASE IP
+        "port" : 7000         // CENTRAL DATABASE PORT
+      },
+      "dataqueue" : {
+        "name" : "REDIS",     // CENTRAL QUEUE NAME [REDIS]
+        "ip"   : "127.0.0.1", // CENTRAL QUEUE IP
+        "port" : 6000         // CENTRAL QUEUE PORT
+      }
+    }
+
+
+
+PART THREE: ADDING NEW CLUSTER NODES
+  NOTES: 1.) Both ROUTER & STORAGE nodes are automatically added via
+             'database' settings
+  EXAMPLE: add ROUTER node w/ UUID: 102
+  The file is a JSON object with the following syntax:
+    {
+      "role" : "ROUTER"              // ROLE
+      "uuid" : 102,                  // UNIQUE CENTRAL SERVER UUID
+      "datacenter" : {
+        "name" : "D1"                // UNIQUE DATACENTER NAME
+      },
+      "wss" : {
+        "server" : {
+          "hostname" : "127.0.0.1", // WSS SERVER HOSTNAME (INCOMING)
+          "ip"       : "0.0.0.0",   // WSS SERVER LISTEN-IP (INCOMING)
+          "port"     : 10102        // WSS SERVER PORT (INCOMING)
+        }
+      },
+      "backend" : {
+        "server" : {
+          "hostname" : "localhost", // BACKEND HOSTNAME (INTERNAL)
+          "ip"       : "0.0.0.0",   // BACKEND LISTEN-IP (INTERNAL)
+          "port"     : 20102        // BACKEND SERVER PORT (INTERNAL)
+        }
+      },
+      "database" : {
+        "name" : "REDIS",     // CENTRAL DATABASE NAME [REDIS,MONGO,MEMORY]
+        "ip"   : "127.0.0.1", // CENTRAL DATABASE IP
+        "port" : 6000         // CENTRAL DATABASE PORT
+      },
+      "dataqueue" : {
+        "name" : "REDIS",     // CENTRAL QUEUE NAME [REDIS]
+        "ip"   : "127.0.0.1", // CENTRAL QUEUE IP
+        "port" : 6000         // CENTRAL QUEUE PORT
+      }
+    }
+
+
+POART FOUR: Adding new GEO-CLUSTERs
+  NOTES: 1.) New GeoClusters are added via a DISCOVERY.[ip,port]
+         2.) DISCOVERY must be up, otherwise the GEO-CLUSTER ADD will FAIL
+             in this case it points to UUID: 101 in DC1's [ip,port]
+  EXAMPLE: Add Geo-Cluster w/ Datacenter.name: D2, ROLE: BOTH, UUID: 2901
+     {
+       "role" : "BOTH",
+       "uuid" : 2901,
+       "datacenter" : {
+         "name" : "D2"
+       },
+       "wss" : {
+         "server" : {
+           "hostname" : "127.0.0.1",
+           "ip"       : "0.0.0.0",
+           "port"     : 10201
+         }
+       },
+       "backend" : {
+         "server" : {
+           "hostname" : "localhost",
+           "ip"       : "0.0.0.0",
+           "port"     : 20201
+         }
+       },
+       "database" : {
+         "name" : "REDIS",
+         "ip"   : "127.0.0.1",
+         "port" : 6001
+       },
+       "discovery" : {
+         "hostname" : "127.0.0.1",
+         "port"     : 10101
+       }
+     }
+
+  NOTE: to add new nodes to DC2, follow STEP THREE
+
