@@ -14,3 +14,9 @@ RELEASE 0.1.1 DATE: Sep 7 2016
   7.) Improved handling of ClusterNode failures
   8.) Garbage Collection improvement: GC-WAIT-INCOMPLETE
 
+  KNOWN-ISSUES:
+    1.) GeoMesh formation had intermittent issues when setup in USA,JAP,IRE
+        On both cluster formation, cluster-node-failure, & geo-failover
+        SOLUTION: redo cluster-node to cluster-node communication to use
+                  HTTPS w/ keep-alive
+    2.) replication is not yet Agent p2p, rather Agent->DC(s)->Agent
