@@ -1,0 +1,30 @@
+
+RELEASE 0.1.1 DATE: Sep 7 2016
+  Summary:
+    1.) JS test suite
+    2.) LOG-Levels [TRACE,NOTICE,ERROR] for DORA(Lua & C++)
+    3.) EXPIRE: API: expire(key, secs)
+    4.) Garbage Collection improvement: GC-WAIT-INCOMPLETE
+
+
+RELEASE 0.1.2: ETA: Oct 24 2016
+  Purpose:
+    Simplify and improve network architecture between components
+
+  Changes:
+    1.) Central unify Router & Storage -> one layer & no queue
+    2.) Intra CentralNode communication (including geo) via HTTPS w/ keepalive
+    3.) Software load balancing (Agents & CentralNodes) -> deprecate haproxy
+    4.) Routable URLS -> (e.g. AgentUUID & KQK in URL)
+
+
+RELEASE 0.2.1: ETA: Dec 1 2016
+  Purpose:
+    Peer-to-peer replication between Agents
+
+  Changes:
+    1.) Cache & Evict as Deltas
+    2.) Subscribe & Unsubscribe as Deltas (to key: '__CHANNEL_X')
+    3.) Agents p2p broadcast Deltas
+    *4.) Multi process NodeJS client (cluster module), each process has a write-thru cache
+
