@@ -1,5 +1,5 @@
 
-# WEBSITE: http://datanet.co/
+[Website](http://datanet.co/)
 
 # FEDORA INSTALL
   tar xvfz datanet_0.X.X.tgz
@@ -41,7 +41,6 @@ export PATH="$PATH:/usr/local/openresty/nginx/sbin/"
 (cd /usr/local/datanet;
   nginx -c /usr/local/datanet/conf/minimal_nginx.conf -p /usr/local/datanet
 )
-
 
 # DOWNLOADS: http://datanet.co/download.html
 # DOCUMENTATION: http://datanet.co/documentation.html
