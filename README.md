@@ -1,7 +1,4 @@
 
-#UNDER CONSTUCTION:
-I just switched this page to markdown, give me 10 minutes to fix it :)
-
 # SUMMARY
 Datanet is an open source CRDT based data synchronization system. Datanet is a P2P replication system that utilizes CRDT algorithms to allow multiple concurrent actors to modify data and then automatically & sensibly resolve modification conflicts. Datanet's goal is aims to achieve ubiquitous write though caching. CRDT replication capabilities can be added to any cache in your stack, meaning modifications to these stacks are globally & reliably replicated. Locally modifying data yields massive gains in latency, produces a more efficient replication stream, & is extremely robust. It’s time to pre-fetch data to compute :)
 
@@ -25,16 +22,6 @@ Datanet is an open source CRDT based data synchronization system. Datanet is a P
   cd datanet_0.X.X
   ./UBUNTU_INSTALL.sh
 ```
-
-OpenResty files will be saved under the directory:
-  /usr/local/openresty/
-
-Datanet specific Lua files will be stored under the directory:
-  /usr/local/openresty/datanet
-
-Datanet configuration/locations will be stored under the directory:
-  /usr/local/datanet/[conf,locations]
-
 # QUICK START
 ## START CENTRAL:
 ```
