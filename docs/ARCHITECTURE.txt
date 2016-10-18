@@ -33,10 +33,10 @@ Title: Datanet Architecture
 -------------------------------------------------------------------------------
 
   Datanet syncronizes data between many geo graphically distributed databases
-  and insures correctness of replication under numerous failure scenarios
+  and ensures correctness of replication under numerous failure scenarios
   using Viral Commutative Replication.
 
-  The core of Datanet consists of multiple DataCenter components which 
+  The core of Datanet consists of multiple DataCenter components that 
   collectively form a fully connected mesh cluster. DataCenter components
   are referred to as DC_Clusters and act as the data-resevoirs of Datanet.
   ALL DC_Clusters in Datanet sync ALL modifications they receive with ALL
@@ -53,11 +53,11 @@ Title: Datanet Architecture
   DC_Cluster, then travel to the other device's DC_Cluster, and finally travel 
   to the other device.  
 
-  Datanet supports Users which are authenticated via username/password 
+  Datanet supports Users that are authenticated via username/password 
   logins. Users station themselves on devices. A User subscribes to 
   (publication) channels. When a Document is modified, any User who subscribed
   to this Document's channel will receive the modification (on all devices on 
-  which the User is stationed).
+  that the User is stationed).
 
 
 -------------------------------------------------------------------------------
