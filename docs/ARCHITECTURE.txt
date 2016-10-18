@@ -33,7 +33,7 @@ Title: Datanet Architecture
 -------------------------------------------------------------------------------
 
   Datanet syncronizes data between many geo graphically distributed databases
-  and insures correctness of replication under numerous failure scenarios
+  and ensures correctness of replication under numerous failure scenarios
   using Viral Commutative Replication.
 
   The core of Datanet consists of multiple DataCenter components which 
